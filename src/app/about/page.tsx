@@ -18,19 +18,9 @@ import { useRouter } from "next/router";
 import { join } from "path";
 import { useState } from "react";
 import StorageTable from "@/components/StorageTable";
-import EditTargetDialog from "@/components/EditTargetDialog";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
-
-  const [openDialog, setOpenDialog] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpenDialog(true);
-  };
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
 
   const rows: any[] = [{ id: "1" }];
   const handleStart = () => {
@@ -39,29 +29,12 @@ export default function Home() {
   return (
     <main>
       <Container maxWidth="xl">
-        <Box sx={{ ml: 8, mr: 8 }}>
-          <Box sx={{ mt: 4 }}>
-            <StorageTable rows={rows} />
-          </Box>
-          <Button
-            variant="contained"
-            sx={{ mt: 4 }}
-            disabled={loading}
-            onClick={handleStart}
-          >
-            Start something
-          </Button>
-          <Box></Box>
-          <Button
-            variant="contained"
-            sx={{ mt: 4 }}
-            onClick={handleClickOpen}
-          >
-            Open Dialog
-          </Button>
-        </Box>
-        <EditTargetDialog handleClose={handleClose} open={openDialog} />
-
+        <Typography
+            variant="h2"
+            sx={{ mt: 4, mb: 4, textAlign: "center" }}  
+            >
+            Welcome to the about page
+        </Typography>
       </Container>
     </main>
   );
