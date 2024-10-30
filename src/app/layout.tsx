@@ -4,6 +4,8 @@ import type { Metadata, Viewport } from "next";
 import { Roboto } from "next/font/google";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {lightTheme} from '../styles/theme/lightTheme';
+import { CssBaseline } from "@mui/material";
+import Navbar from "@/components/Navbar";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -31,7 +33,11 @@ export default function RootLayout(props: any) {
     <html lang="en">
       <body className={roboto.variable}>
         <AppRouterCacheProvider options={{ key: "css" }}>
-          <ThemeProvider theme={lightTheme}>{props.children}</ThemeProvider>
+          <ThemeProvider theme={lightTheme}>
+            <CssBaseline />
+            <Navbar />
+            {props.children}
+            </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
