@@ -4,7 +4,17 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "../styles/Home.module.css";
-import { Alert, Box, Button, Container, Link, Snackbar } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Container,
+  Link,
+  Snackbar,
+  Step,
+  StepLabel,
+  Stepper,
+} from "@mui/material";
 import NextLink from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +29,11 @@ import { join } from "path";
 import { useState } from "react";
 import StorageTable from "@/components/StorageTable";
 import EditTargetDialog from "@/components/EditTargetDialog";
+import HorizontalLinearStepper from "@/components/Stepper";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
-
+  const [activeStep, setActiveStep] = React.useState(0);
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleClickOpen = () => {
@@ -32,7 +43,7 @@ export default function Home() {
     setOpenDialog(false);
   };
 
-  const rows: any[] = [{ id: "1" }];
+  const rows: any[] = [{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }];
   const handleStart = () => {
     console.log("Starting something");
   };
@@ -40,6 +51,13 @@ export default function Home() {
     <main>
       <Container maxWidth="xl">
         <Box sx={{ ml: 8, mr: 8 }}>
+          <Typography variant="h5" sx={{ mt: 5 }}>
+            {" "}
+            First page title {" "}
+          </Typography>
+          <Box sx={{ mt: 1 }}>
+            <HorizontalLinearStepper activeStep={activeStep} />
+          </Box>
           <Box sx={{ mt: 4 }}>
             <StorageTable rows={rows} />
           </Box>
@@ -52,16 +70,11 @@ export default function Home() {
             Start something
           </Button>
           <Box></Box>
-          <Button
-            variant="contained"
-            sx={{ mt: 4 }}
-            onClick={handleClickOpen}
-          >
+          <Button variant="contained" sx={{ mt: 4 }} onClick={handleClickOpen}>
             Open Dialog
           </Button>
         </Box>
         <EditTargetDialog handleClose={handleClose} open={openDialog} />
-
       </Container>
     </main>
   );

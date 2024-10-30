@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
@@ -7,12 +8,13 @@ const columns: GridColDef[] = [
     headerName: "Name",
     renderCell: (cellValues) => {
       return (
-        <>
+        <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
+
           <Typography variant="body2" sx={{ ml: 1 }}>
             {" "}
             First Name{" "}
           </Typography>
-        </>
+        </Box>
       );
     },
   },
@@ -21,12 +23,12 @@ const columns: GridColDef[] = [
     headerName: "Date added",
     renderCell: (cellValues) => {
       return (
-        <>
+        <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
             {" "}
             28.6.2021{" "}
           </Typography>
-        </>
+        </Box>
       );
     },
   },
@@ -35,12 +37,12 @@ const columns: GridColDef[] = [
     headerName: "Connection status",
     renderCell: (cellValues) => {
       return (
-        <>
+        <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
             {" "}
             12{" "}
           </Typography>
-        </>
+        </Box>
       );
     },
   },
@@ -48,7 +50,7 @@ const columns: GridColDef[] = [
 
 export default function StorageTable({ rows }: { rows: any }) {
   return (
-    <div style={{ width: "100%" }}>
+    <Box sx={{ width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -60,8 +62,7 @@ export default function StorageTable({ rows }: { rows: any }) {
           },
         }}
         pageSizeOptions={[5, 10, 25]}
-        autoHeight
       />
-    </div>
+    </Box>
   );
 }
