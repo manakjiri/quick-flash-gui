@@ -31,6 +31,9 @@ import StorageTable from "@/components/StorageTable";
 import EditTargetDialog from "@/components/EditTargetDialog";
 import HorizontalLinearStepper from "@/components/Stepper";
 
+import { invoke } from '@tauri-apps/api/core';
+
+
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
@@ -44,9 +47,14 @@ export default function Home() {
   };
 
   const rows: any[] = [{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }];
+  
   const handleStart = () => {
     console.log("Starting something");
+    invoke('get_all_storage_credentials').then((res) => {
+      console.log(res);
+    });
   };
+  
   return (
     <main>
       <Container maxWidth="xl">

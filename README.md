@@ -2,6 +2,8 @@
 
 ## Development
 
+Install deps using `npm install`.
+
 Run using `npm run tauri dev`.
 
 ## Next.js
