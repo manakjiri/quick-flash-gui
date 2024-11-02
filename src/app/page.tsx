@@ -47,10 +47,14 @@ export default function Home() {
   };
 
   const rows: any[] = [{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }];
+  
   const handleStart = () => {
     console.log("Starting something");
-    invoke('my_custom_command');
+    invoke('get_all_storage_credentials').then((res) => {
+      console.log(res);
+    });
   };
+  
   return (
     <main>
       <Container maxWidth="xl">
