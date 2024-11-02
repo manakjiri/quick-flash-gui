@@ -1,6 +1,13 @@
+
+#[tauri::command]
+fn my_custom_command() {
+  println!("I was invoked from JavaScript!");
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
   tauri::Builder::default()
+    .invoke_handler(tauri::generate_handler![my_custom_command])
     .setup(|app| {
       if cfg!(debug_assertions) {
         app.handle().plugin(
