@@ -48,7 +48,10 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const [openDialog, setOpenDialog] = useState(false);
-  const [rows, setRows] = useState<StorageTableRow[]>([]);
+  const [rows, setRows] = useState<StorageTableRow[]>([
+    { id: 0, name: "Dummy1", date: "Date added", connectionStatus: "Connection status" },
+    { id: 1, name: "Dummy2", date: "Date added", connectionStatus: "Connection status" },
+  ]);
 
   const handleClickOpen = () => {
     setOpenDialog(true);
@@ -64,7 +67,7 @@ export default function Home() {
         return {
           id: index,
           name: value.user_storage_name,
-          date: new Date(value.timestamp).toLocaleString(),
+          date: new Date(value.timestamp * 1000).toLocaleString(),
           connectionStatus: "Connected",
         };
       }));

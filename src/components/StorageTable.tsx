@@ -28,8 +28,7 @@ const columns: GridColDef<StorageTableRow>[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            First Name{" "}
+            {cellValues.value}
           </Typography>
         </Box>
       );
@@ -43,8 +42,7 @@ const columns: GridColDef<StorageTableRow>[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            28.6.2021{" "}
+          {cellValues.value}
           </Typography>
         </Box>
       );
@@ -58,8 +56,7 @@ const columns: GridColDef<StorageTableRow>[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            ONLINE{" "}
+          {cellValues.value}
           </Typography>
         </Box>
       );
