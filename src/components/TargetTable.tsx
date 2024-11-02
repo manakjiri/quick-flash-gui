@@ -20,6 +20,7 @@ const columns: GridColDef[] = [
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
+
           <Typography variant="body2" sx={{ ml: 1 }}>
             {" "}
             First Name{" "}
@@ -30,47 +31,55 @@ const columns: GridColDef[] = [
   },
   {
     field: "date",
-    headerName: "Date added",
+    headerName: "Time connected",
     flex: 1,
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
             {" "}
-            28.6.2021{" "}
+            28.6.2021 13:13{" "}
           </Typography>
         </Box>
       );
     },
   },
   {
-    field: "connectionStatus",
-    headerName: "Connection status",
+    field: "manufacturer",
+    headerName: "Manufacturer",
     flex: 1,
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
             {" "}
-            ONLINE{" "}
+            Lispberry{" "}
+          </Typography>
+        </Box>
+      );
+    },
+  },
+  {
+    field: "lastUsed",
+    headerName: "Last used",
+    flex: 1,
+    renderCell: (cellValues) => {
+      return (
+        <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
+          <Typography variant="body2" sx={{ ml: 1 }}>
+            {" "}
+            15.5.2021 11:11{" "}
           </Typography>
         </Box>
       );
     },
   },
 ];
-/*const columns: GridColDef[] = [
-  { field: 'name', headerName: 'Name', flex: 1 },
-  { field: 'date', headerName: 'Date added', flex: 1 },
-  { field: 'connectionStatus', headerName: 'Connection status', flex: 1 },
-];*/
 
 function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
   const apiRef = useGridApiContext();
 
-  const [openEditDialog, setOpenDialog] = useState(false);
-  //const [openAddDialog, setOpenAddDialog] = useState(false);
-  //const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const handleClickOpen = () => {
     setOpenDialog(true);
@@ -82,38 +91,22 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
   return (
     <>
       <GridToolbarContainer
-        sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
+        sx={{ display: "flex", justifyContent: "flex-end" }}
       >
-        <Box sx={{ display: "flex", gap: 1 }}>
-          <Button  onClick={handleClickOpen}>
-            Add
-          </Button>
-          <Button
-            disabled={isEditDisabled}
-            onClick={handleClickOpen}
-            color="error"
-          >
-            Remove
-          </Button>
-        </Box>
-
-        <Box sx={{ display: "flex", gap: 1 }}>
-          <Button
-            variant="outlined"
-            disabled={isEditDisabled}
-            onClick={handleClickOpen}
-          >
-            Edit
-          </Button>
-        </Box>
+        <Button
+          variant="outlined"
+          disabled={isEditDisabled}
+          onClick={handleClickOpen}
+        >
+          Edit
+        </Button>
       </GridToolbarContainer>
-      <EditTargetDialog handleClose={handleClose} open={openEditDialog} />
+      <EditTargetDialog handleClose={handleClose} open={openDialog} />
     </>
-    //TODO: add other popups
   );
 }
 
-export default function StorageTable({ rows }: { rows: any }) {
+export default function TargetTable({ rows }: { rows: any }) {
   const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (
     params: GridRowParams
   ) => {
