@@ -98,7 +98,7 @@ function Navbar() {
               >
                 <MenuItem
                   component={NextLink}
-                  href="/flash"
+                  href="/"
                   onClick={handleCloseNavMenu}
                 >
                   <Typography textAlign="center">Flash</Typography>
