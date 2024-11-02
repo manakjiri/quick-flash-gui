@@ -12,7 +12,14 @@ import {
   GridToolbarContainer,
 } from "@mui/x-data-grid";
 
-const columns: GridColDef[] = [
+export interface StorageTableRow {
+  id: number;
+  name: string;
+  date: string;
+  connectionStatus: string;
+}
+
+const columns: GridColDef<StorageTableRow>[] = [
   {
     field: "name",
     headerName: "Name",
@@ -113,7 +120,7 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
   );
 }
 
-export default function StorageTable({ rows }: { rows: any }) {
+export default function StorageTable({ rows }: { rows: StorageTableRow[] }) {
   const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (
     params: GridRowParams
   ) => {
