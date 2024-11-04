@@ -1,15 +1,10 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
+import { Box, Button, DialogActions, Stack, TextField } from '@mui/material';
 import { BootstrapDialog, BootstrapDialogTitle } from './shared';
+import { Grid } from '@mui/material';
+import { width } from '@mui/system';
 
 
 export interface ObtainingXMLDialogProps {
@@ -30,13 +25,125 @@ export default function EditTargetDialog(props: ObtainingXMLDialogProps) {
                 <Typography variant="h5" color="primary"> Edit Target </Typography>
             </BootstrapDialogTitle>
             <DialogContent>
-                <Box>
-                    <Typography variant="subtitle1" color="primary"> Some text </Typography>
-                    <Typography variant="body2" color="primary">
-                        And some more
-                    </Typography>
+                <Box
+                    width={400}
+                    mt={2}>
+                    <TextField id="outlined-basic" label="Target's name"
+                        variant="outlined" fullWidth>
+                    </TextField>
+                    <Stack
+                        direction="row"
+                        spacing={2}
+                        alignItems="center"
+                        mt={2}>
+                        <Box width="45%">
+                            <Typography variant="subtitle2" color="primary">
+                                Manufacture
+                            </Typography>
+                        </Box>
+                        <Box width="55%">
+                            <Typography variant="body2" color="primary">
+                                Black magic
+                            </Typography>
+                        </Box>
+                    </Stack>
+
+                    <Stack
+                        direction="row"
+                        spacing={2}
+                        alignItems="center"
+                        mt={2}>
+                        <Box width="45%">
+                            <Typography variant="subtitle2" color="primary">
+                                Vendor ID
+                            </Typography>
+                        </Box>
+                        <Box width="55%">
+                            <Typography variant="body2" color="primary">
+                                VID
+                            </Typography>
+                        </Box>
+                    </Stack>
+
+                    <Stack
+                        direction="row"
+                        spacing={2}
+                        alignItems="center"
+                        mt={2}>
+                        <Box width="45%">
+                            <Typography variant="subtitle2" color="primary">
+                                Serial number
+                            </Typography>
+                        </Box>
+                        <Box width="55%">
+                            <Typography variant="body2" color="primary">
+                                Random serial number
+                            </Typography>
+                        </Box>
+                    </Stack>
+                    <Stack
+                        direction="row"
+                        spacing={2}
+                        alignItems="center"
+                        mt={2}>
+                        <Box width="45%">
+                            <Typography variant="subtitle2" color="primary">
+                                First time connection
+                            </Typography>
+                        </Box>
+                        <Box width="55%">
+                            <Typography variant="body2" color="primary">
+                                10.10.2024 15:10
+                            </Typography>
+                        </Box>
+                    </Stack>
+                    <Stack
+                        direction="row"
+                        spacing={2}
+                        alignItems="center"
+                        mt={2}>
+                        <Box width="45%">
+                            <Typography variant="subtitle2" color="primary">
+                                Connected since
+                            </Typography>
+                        </Box>
+                        <Box width="55%">
+                            <Typography variant="body2" color="primary">
+                                16.10.2024 13:13
+                            </Typography>
+                        </Box>
+                    </Stack>
+                    <Stack
+                        direction="row"
+                        spacing={2}
+                        alignItems="center"
+                        mt={2}>
+                        <Box width="45%">
+                            <Typography variant="subtitle2" color="primary">
+                                Last used
+                            </Typography>
+                        </Box>
+                        <Box width="55%">
+                            <Typography variant="body2" color="primary">
+                                16.10.2024 13:23
+                            </Typography>
+                        </Box>
+                    </Stack>
                 </Box>
             </DialogContent>
-        </BootstrapDialog>
+            <DialogActions
+                style={{
+                    justifyContent: 'space-between',
+                    padding: '16px 24px',
+                }}
+            >
+                <Button onClick={handleClose} variant="outlined" color="primary">
+                    Cancel
+                </Button>
+                <Button onClick={() => {/* handle save action */ }} variant="contained" color="primary">
+                    Save
+                </Button>
+            </DialogActions>
+        </BootstrapDialog >
     );
 }
