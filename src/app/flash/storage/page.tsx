@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import StorageTable from "@/components/StorageTable";
 import { StorageTableRow } from "@/components/StorageTable";
-import EditTargetDialog from "@/components/EditTargetDialog";
 import HorizontalLinearStepper from "@/components/Stepper";
 
 import { invoke } from '@tauri-apps/api/core';
@@ -22,20 +21,11 @@ interface StorageCredentials {
 }
 
 export default function Home() {
-  const [loading, setLoading] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
-  const [openEditDialog, setOpenEditDialog] = useState(false);
   const [rows, setRows] = useState<StorageTableRow[]>([
     { id: 0, name: "Dummy1", date: "Date added", connectionStatus: "Connection status" },
     { id: 1, name: "Dummy2", date: "Date added", connectionStatus: "Connection status" },
   ]);
-
-  const handleClickOpen = () => {
-    setOpenDialog(true);
-  };
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
   
   const handleStart = () => {
     console.log("Starting something");
@@ -55,11 +45,7 @@ export default function Home() {
     <main>
       <Container maxWidth="xl">
         <Box sx={{ ml: 8, mr: 8 }}>
-          <Typography variant="h5" sx={{ mt: 5 }}>
-            {" "}
-            First page title {" "}
-          </Typography>
-          <Box sx={{ mt: 1 }}>
+          <Box sx={{ mt: 5 }}>
             <HorizontalLinearStepper activeStep={activeStep} />
           </Box>
           <Box sx={{ mt: 4 }}>
