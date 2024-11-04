@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import EditStorageDialog from "./EditStorageDialog";
 import AddStorageDialog from "./AddStorageDialog";
 import DeleteConfirmation from "./DeleteConfirmation";
-
+import { useRouter } from "next/navigation";
 import {
   DataGrid,
   GridColDef,
@@ -115,13 +115,14 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
   );
 }
 
-export default function StorageTable({ rows }: { rows: StorageTableRow[] }) {
+export default function StorageTable({ rows, onEditDisabledChange  }: { rows: StorageTableRow[], onEditDisabledChange: (value: boolean) => void }) {
+  const router = useRouter();
   const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (
     params: GridRowParams
   ) => {
     // Handles the double click event
     console.log("Row double-clicked:", params.row);
-    // TODO: Add routing
+    router.push('/flash/firmware');
   };
 
   const [isEditDisabled, setIsEditDisabled] = useState(true);
@@ -130,6 +131,7 @@ export default function StorageTable({ rows }: { rows: StorageTableRow[] }) {
     params: GridRowParams
   ) => {
     setIsEditDisabled(false); // Enable the Edit button on row click
+    onEditDisabledChange(false);
   };
 
   return (
