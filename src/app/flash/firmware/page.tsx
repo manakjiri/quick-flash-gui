@@ -16,7 +16,7 @@ export default function Home() {
   const [rows, setRows] = useState<FirmwareTableRow[]>([
     { id: 0, name: "blink", date: "18.3.2021" },
     { id: 1, name: "fizzbuzz", date: "10.2.2021" },
-    { id: 1, name: "control", date: "1.1.2020" },
+    { id: 2, name: "control", date: "1.1.2020" },
   ]);
   
   const [isEditDisabled, setIsEditDisabled] = useState(true);
