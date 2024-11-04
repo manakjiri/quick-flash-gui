@@ -2,7 +2,10 @@ import { useState } from "react";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import EditTargetDialog from "@/components/EditTargetDialog";
+import EditStorageDialog from "./EditStorageDialog";
+import AddStorageDialog from "./AddStorageDialog";
+import DeleteConfirmation from "./DeleteConfirmation";
+
 import {
   DataGrid,
   GridColDef,
@@ -72,16 +75,10 @@ const columns: GridColDef<StorageTableRow>[] = [
 function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
   const apiRef = useGridApiContext();
 
-  const [openEditDialog, setOpenDialog] = useState(false);
-  //const [openAddDialog, setOpenAddDialog] = useState(false);
-  //const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpenDialog(true);
-  };
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
+  const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [openAddDialog, setOpenAddDialog] = useState(false);
+  const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<GridRowParams | null>(null);
 
   return (
     <>
@@ -89,12 +86,12 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
         sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
       >
         <Box sx={{ display: "flex", gap: 1 }}>
-          <Button  onClick={handleClickOpen}>
+          <Button  onClick={() => setOpenAddDialog(true)}>
             Add
           </Button>
           <Button
             disabled={isEditDisabled}
-            onClick={handleClickOpen}
+            onClick={() => setOpenRemoveDialog(true)}
             color="error"
           >
             Remove
@@ -105,15 +102,16 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
           <Button
             variant="outlined"
             disabled={isEditDisabled}
-            onClick={handleClickOpen}
+            onClick={() => setOpenEditDialog(true)}
           >
             Edit
           </Button>
         </Box>
       </GridToolbarContainer>
-      <EditTargetDialog handleClose={handleClose} open={openEditDialog} />
+      <EditStorageDialog handleClose={() => setOpenEditDialog(false)} open={openEditDialog} handleEdit={() => {}} handleDelete={() => {}} />
+      <AddStorageDialog handleClose={() => setOpenAddDialog(false)} open={openAddDialog} handleAdd={() => {}}/>
+      <DeleteConfirmation handleClose={() => setOpenRemoveDialog(false)} open={openRemoveDialog} handleConfirm={() => {}}/>
     </>
-    //TODO: add other popups
   );
 }
 

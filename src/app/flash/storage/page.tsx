@@ -24,7 +24,7 @@ interface StorageCredentials {
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
   const [rows, setRows] = useState<StorageTableRow[]>([
     { id: 0, name: "Dummy1", date: "Date added", connectionStatus: "Connection status" },
     { id: 1, name: "Dummy2", date: "Date added", connectionStatus: "Connection status" },
@@ -74,11 +74,7 @@ export default function Home() {
             Start something
           </Button> */}
           <Box></Box>
-          <Button variant="contained" sx={{ mt: 4 }} onClick={handleClickOpen}>
-            Open Dialog
-          </Button>
         </Box>
-        <EditTargetDialog handleClose={handleClose} open={openDialog} />
       </Container>
     </main>
   );

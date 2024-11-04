@@ -6,11 +6,17 @@ import { Box, Button, DialogActions, DialogContent, TextField, Typography } from
 export interface ObtainingXMLDialogProps {
     handleClose: () => void;
     open: boolean;
+    handleAdd: () => void;
 }
 
 
 export default function AddStorageDialog(props: ObtainingXMLDialogProps){
-    const { handleClose, open, ...other } = props;
+    const { handleClose, open, handleAdd, ...other } = props;
+
+    const handleAddInternal = () => {
+        handleAdd();
+        handleClose();
+    }
 
     return (
         <BootstrapDialog 
@@ -54,7 +60,7 @@ export default function AddStorageDialog(props: ObtainingXMLDialogProps){
                 <Button onClick={handleClose} variant="outlined" color="primary">
                     Cancel
                 </Button>
-                <Button onClick={() => {/* handle save action */}} variant="contained" color="primary">
+                <Button onClick={handleAddInternal} variant="contained" color="primary">
                     Save
                 </Button>
             </DialogActions>
