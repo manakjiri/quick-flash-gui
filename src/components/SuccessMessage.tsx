@@ -26,7 +26,7 @@ function SuccessMessage(){
         <Typography textAlign="center" variant='h5'>Successfully flashed!</Typography>
         <span style={{
             padding: '50px'
-        }}><Button variant='contained' color='primary' href="/" >Finish</Button></span>
+        }}><Button variant='contained' color='primary' href="/flash/target" >Finish</Button></span>
         </div>
         </>
     );

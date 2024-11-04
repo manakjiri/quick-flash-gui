@@ -1,10 +1,9 @@
 "use client";
+
 import * as React from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { Button, Typography} from '@mui/material';
-import lightThemeOptions from '@/styles/theme/lightThemeOptions';
 import { useTheme } from '@mui/material/styles'
-
 
 
 function DonutChart() {
@@ -57,7 +56,7 @@ function DonutChart() {
                 <div style={{ fontSize: '24px', fontWeight: 'semibold' }}>
                 <Typography textAlign="center" variant='h5'>Flashing...</Typography>
                 </div>
-                <Button variant="outlined">Cancel</Button>
+                <Button variant="outlined" href='/flash/target'>Cancel</Button>
             </div>
         </div>
         </>

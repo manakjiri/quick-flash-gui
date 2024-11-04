@@ -63,7 +63,7 @@ export default function Home() {
                 </Button>
               </Link>
               <Link
-                href="/final"
+                href="/flash/final"
                 passHref
                 style={{ pointerEvents: isEditDisabled ? "none" : "auto" }}
               >

@@ -126,7 +126,7 @@ export default function TargetTable({ rows, onEditDisabledChange }: { rows: any,
   ) => {
     // Handles the double click event
     console.log("Row double-clicked:", params.row);
-    router.push('/final');
+    router.push('/flash/final');
   };
 
   return (

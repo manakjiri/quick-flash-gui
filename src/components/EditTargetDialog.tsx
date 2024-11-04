@@ -140,7 +140,7 @@ export default function EditTargetDialog(props: ObtainingXMLDialogProps) {
                 <Button onClick={handleClose} variant="outlined" color="primary">
                     Cancel
                 </Button>
-                <Button onClick={() => {/* handle save action */ }} variant="contained" color="primary">
+                <Button onClick={() => {handleClose()}} variant="contained" color="primary">
                     Save
                 </Button>
             </DialogActions>

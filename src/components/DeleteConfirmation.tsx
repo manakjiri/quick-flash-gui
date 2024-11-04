@@ -55,9 +55,7 @@ export default function DeleteConfirmation(props: ObtainingXMLDialogProps)  {
                     }}>No, cancel</Typography>
                 </Button>
                 
-                <DeleteConfirmation handleClose={function (): void {
-                    throw new Error('Function not implemented.');
-                } } open={false}></DeleteConfirmation>
+                <DeleteConfirmation handleClose={() => {}} open={false} handleConfirm={() => {}}></DeleteConfirmation>
                 <Button 
                     onClick={handleConfirmInternal}
                     variant="contained"
