@@ -28,16 +28,30 @@ import { useRouter } from "next/router";
 import { join } from "path";
 import { useState } from "react";
 import StorageTable from "@/components/StorageTable";
+import { StorageTableRow } from "@/components/StorageTable";
 import EditTargetDialog from "@/components/EditTargetDialog";
 import HorizontalLinearStepper from "@/components/Stepper";
 
 import { invoke } from '@tauri-apps/api/core';
 
+interface StorageCredentials {
+  user_storage_name: string;
+  storage_type: string;
+  storage_name: string;
+  storage_account_id: string;
+  storage_access_key: string;
+  storage_secret_key: string;
+  timestamp: number;
+}
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const [openDialog, setOpenDialog] = useState(false);
+  const [rows, setRows] = useState<StorageTableRow[]>([
+    { id: 0, name: "Dummy1", date: "Date added", connectionStatus: "Connection status" },
+    { id: 1, name: "Dummy2", date: "Date added", connectionStatus: "Connection status" },
+  ]);
 
   const handleClickOpen = () => {
     setOpenDialog(true);
@@ -45,13 +59,18 @@ export default function Home() {
   const handleClose = () => {
     setOpenDialog(false);
   };
-
-  const rows: any[] = [{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }];
   
   const handleStart = () => {
     console.log("Starting something");
-    invoke('get_all_storage_credentials').then((res) => {
-      console.log(res);
+    invoke<StorageCredentials[]>('get_all_storage_credentials').then((res) => {
+      setRows(res.map<StorageTableRow>((value, index) => {
+        return {
+          id: index,
+          name: value.user_storage_name,
+          date: new Date(value.timestamp * 1000).toLocaleString(),
+          connectionStatus: "Connected",
+        };
+      }));
     });
   };
   

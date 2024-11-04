@@ -12,7 +12,14 @@ import {
   GridToolbarContainer,
 } from "@mui/x-data-grid";
 
-const columns: GridColDef[] = [
+export interface StorageTableRow {
+  id: number;
+  name: string;
+  date: string;
+  connectionStatus: string;
+}
+
+const columns: GridColDef<StorageTableRow>[] = [
   {
     field: "name",
     headerName: "Name",
@@ -21,8 +28,7 @@ const columns: GridColDef[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            First Name{" "}
+            {cellValues.value}
           </Typography>
         </Box>
       );
@@ -36,8 +42,7 @@ const columns: GridColDef[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            28.6.2021{" "}
+          {cellValues.value}
           </Typography>
         </Box>
       );
@@ -51,8 +56,7 @@ const columns: GridColDef[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            ONLINE{" "}
+          {cellValues.value}
           </Typography>
         </Box>
       );
@@ -113,7 +117,7 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
   );
 }
 
-export default function StorageTable({ rows }: { rows: any }) {
+export default function StorageTable({ rows }: { rows: StorageTableRow[] }) {
   const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (
     params: GridRowParams
   ) => {
