@@ -39,7 +39,7 @@ function Navbar() {
           <Toolbar disableGutters>
             <Link
               component={NextLink}
-              href="/"
+              href="/flash/storage"
               style={{
                 textDecoration: "none",
                 color: "inherit",
@@ -98,7 +98,7 @@ function Navbar() {
               >
                 <MenuItem
                   component={NextLink}
-                  href="/"
+                  href="/flash/storage"
                   onClick={handleCloseNavMenu}
                 >
                   <Typography textAlign="center">Flash</Typography>
@@ -106,7 +106,7 @@ function Navbar() {
 
                 <MenuItem
                   component={NextLink}
-                  href="/about"
+                  href="/"
                   onClick={handleCloseNavMenu}
                 >
                   <Typography textAlign="center">About</Typography>
@@ -156,7 +156,7 @@ function Navbar() {
 
             <Button
               color="primary"
-              href="/flash"
+              href="/flash/storage"
               sx={{
                 my: 2,
                 color: "white",
@@ -167,7 +167,7 @@ function Navbar() {
             </Button>
             <Button
               color="primary"
-              href="/about"
+              href="/"
               sx={{
                 my: 2,
                 color: "white",
