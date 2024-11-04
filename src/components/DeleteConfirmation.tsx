@@ -7,9 +7,16 @@ import { red } from '@mui/material/colors';
 export interface ObtainingXMLDialogProps {
     handleClose: () => void;
     open: boolean;
+    handleConfirm: () => void;
 }
 export default function DeleteConfirmation(props: ObtainingXMLDialogProps)  {
-    const { handleClose, open, ...other } = props;
+    const { handleClose, open, handleConfirm, ...other } = props;
+
+    const handleConfirmInternal = () => {
+        handleConfirm();
+        handleClose();
+    }
+
     return (
         <BootstrapDialog 
         onClose={handleClose}
@@ -42,17 +49,15 @@ export default function DeleteConfirmation(props: ObtainingXMLDialogProps)  {
                     padding: '16px 24px',
                 }}
             >
-                <Button onClick ={() => {/*handle Cancel action*/}} variant="outlined" color="primary">
+                <Button onClick ={handleClose} variant="outlined" color="primary">
                 <Typography style={{
                         color: "primary"
                     }}>No, cancel</Typography>
                 </Button>
                 
-                <DeleteConfirmation handleClose={function (): void {
-                    throw new Error('Function not implemented.');
-                } } open={false}></DeleteConfirmation>
+                <DeleteConfirmation handleClose={() => {}} open={false} handleConfirm={() => {}}></DeleteConfirmation>
                 <Button 
-                    onClick={() => {/* handle Confirm action */}} 
+                    onClick={handleConfirmInternal}
                     variant="contained"
                     sx={{
                         backgroundColor: 'red', 

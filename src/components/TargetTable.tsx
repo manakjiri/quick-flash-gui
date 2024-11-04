@@ -11,8 +11,16 @@ import {
   useGridApiContext,
   GridToolbarContainer,
 } from "@mui/x-data-grid";
+import { useRouter } from "next/navigation";
+export interface TargetTableRow {
+  id: number;
+  name: string;
+  date: string;
+  manufacturer: string;
+  lastUsed: string;
+}
 
-const columns: GridColDef[] = [
+const columns: GridColDef<TargetTableRow>[] = [
   {
     field: "name",
     headerName: "Name",
@@ -22,8 +30,7 @@ const columns: GridColDef[] = [
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
 
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            First Name{" "}
+          {cellValues.value}
           </Typography>
         </Box>
       );
@@ -37,8 +44,7 @@ const columns: GridColDef[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            28.6.2021 13:13{" "}
+          {cellValues.value}
           </Typography>
         </Box>
       );
@@ -52,8 +58,7 @@ const columns: GridColDef[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            Lispberry{" "}
+          {cellValues.value}
           </Typography>
         </Box>
       );
@@ -67,8 +72,7 @@ const columns: GridColDef[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            15.5.2021 11:11{" "}
+            {cellValues.value}
           </Typography>
         </Box>
       );
@@ -106,14 +110,7 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
   );
 }
 
-export default function TargetTable({ rows }: { rows: any }) {
-  const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (
-    params: GridRowParams
-  ) => {
-    // Handles the double click event
-    console.log("Row double-clicked:", params.row);
-    // TODO: Add routing
-  };
+export default function TargetTable({ rows, onEditDisabledChange }: { rows: any, onEditDisabledChange: (value: boolean) => void }) {
 
   const [isEditDisabled, setIsEditDisabled] = useState(true);
 
@@ -121,6 +118,15 @@ export default function TargetTable({ rows }: { rows: any }) {
     params: GridRowParams
   ) => {
     setIsEditDisabled(false); // Enable the Edit button on row click
+    onEditDisabledChange(false);
+  };
+  const router = useRouter();
+  const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (
+    params: GridRowParams
+  ) => {
+    // Handles the double click event
+    console.log("Row double-clicked:", params.row);
+    router.push('/flash/final');
   };
 
   return (

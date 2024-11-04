@@ -4,14 +4,17 @@ import { Box, Button, DialogActions, DialogContent, TextField, Typography } from
 import DeleteConfirmation from './DeleteConfirmation';
 
 
+
 export interface ObtainingXMLDialogProps {
     handleClose: () => void;
     open: boolean;
+    handleEdit: () => void;
+    handleDelete: () => void;
 }
 
 
 export default function EditStorageDialog (props: ObtainingXMLDialogProps) {
-    const { handleClose, open, ...other } = props;
+    const { handleClose, open, handleEdit, handleDelete, ...other } = props;
     const[delConfOpen, setDelConfOpen] = useState(false);
 
     const handleOpenDialog = () =>{
@@ -21,11 +24,17 @@ export default function EditStorageDialog (props: ObtainingXMLDialogProps) {
     const handleCloseDialog = () =>{
         setDelConfOpen(false);
     }
+
+    const handleEditInternal = () => {
+        handleEdit();
+        handleClose();
+    }
+
+    const handleDeleteInternal = () => {
+        handleDelete();
+        handleClose();
+    }
     
-
-
-
-
     return (
         <BootstrapDialog 
             onClose={handleClose}
@@ -72,8 +81,8 @@ export default function EditStorageDialog (props: ObtainingXMLDialogProps) {
                         color: "red"
                     }}>Delete Storage</Typography>
                 </Button>
-                <DeleteConfirmation handleClose={handleCloseDialog} open={delConfOpen}></DeleteConfirmation>
-                <Button onClick={() => {/* handle save action */}} variant="contained" color="primary">
+                <DeleteConfirmation handleClose={handleCloseDialog} open={delConfOpen} handleConfirm={handleDeleteInternal}></DeleteConfirmation>
+                <Button onClick={handleEditInternal} variant="contained" color="primary">
                 <Typography style={{
                         color: ""
                     }}>Save</Typography>

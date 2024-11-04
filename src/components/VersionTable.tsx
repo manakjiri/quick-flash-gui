@@ -1,8 +1,24 @@
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { useState } from "react";
+import {
+  DataGrid,
+  GridColDef,
+  GridEventListener,
+  GridRowParams,
+  useGridApiContext,
+  GridToolbarContainer,
+} from "@mui/x-data-grid";
+import { useRouter } from "next/navigation";
 
-const columns: GridColDef[] = [
+export interface VersionTableRow {
+  id: number;
+  name: string;
+  date: string;
+  chipName: string;
+}
+
+const columns: GridColDef<VersionTableRow>[] = [
   {
     field: "name",
     headerName: "Name",
@@ -12,8 +28,7 @@ const columns: GridColDef[] = [
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
 
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            First Name{" "}
+          {cellValues.value}
           </Typography>
         </Box>
       );
@@ -27,8 +42,7 @@ const columns: GridColDef[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            28.6.2021{" "}
+          {cellValues.value}
           </Typography>
         </Box>
       );
@@ -42,8 +56,7 @@ const columns: GridColDef[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-            {" "}
-            fintel{" "}
+          {cellValues.value}
           </Typography>
         </Box>
       );
@@ -51,7 +64,25 @@ const columns: GridColDef[] = [
   },
 ];
 
-export default function VersionTable({ rows }: { rows: any }) {
+export default function VersionTable({ rows, onEditDisabledChange }: { rows: any, onEditDisabledChange: (value: boolean) => void }) {
+  const [isEditDisabled, setIsEditDisabled] = useState(true);
+
+  const handleRowClick: GridEventListener<"rowClick"> = (
+    params: GridRowParams
+  ) => {
+    setIsEditDisabled(false); // Enable the Edit button on row click
+    onEditDisabledChange(false);
+  };
+
+  const router = useRouter();
+  const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (
+    params: GridRowParams
+  ) => {
+    // Handles the double click event
+    console.log("Row double-clicked:", params.row);
+    router.push('/flash/target');
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
       <DataGrid
@@ -65,6 +96,8 @@ export default function VersionTable({ rows }: { rows: any }) {
           },
         }}
         pageSizeOptions={[5, 10, 25]}
+        onRowClick={handleRowClick} // Enable button on row click
+        onRowDoubleClick={handleRowDoubleClick} // Route to the next part of the process
       />
     </Box>
   );
