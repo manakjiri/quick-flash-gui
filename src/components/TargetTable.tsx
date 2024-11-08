@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import EditTargetDialog from "@/components/EditTargetDialog";
+import EditIcon from '@mui/icons-material/Edit';
 import {
   DataGrid,
   GridColDef,
@@ -30,7 +31,7 @@ const columns: GridColDef<TargetTableRow>[] = [
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
 
           <Typography variant="body2" sx={{ ml: 1 }}>
-          {cellValues.value}
+            {cellValues.value}
           </Typography>
         </Box>
       );
@@ -44,7 +45,7 @@ const columns: GridColDef<TargetTableRow>[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-          {cellValues.value}
+            {cellValues.value}
           </Typography>
         </Box>
       );
@@ -58,7 +59,7 @@ const columns: GridColDef<TargetTableRow>[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-          {cellValues.value}
+            {cellValues.value}
           </Typography>
         </Box>
       );
@@ -101,6 +102,7 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
           variant="outlined"
           disabled={isEditDisabled}
           onClick={handleClickOpen}
+          startIcon={<EditIcon />}
         >
           Edit
         </Button>

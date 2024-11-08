@@ -1,7 +1,8 @@
 import React from 'react'
 import { BootstrapDialog, BootstrapDialogTitle } from './shared';
 import { Box, Button, DialogActions, DialogContent, TextField, Typography } from '@mui/material';
-
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 export interface ObtainingXMLDialogProps {
     handleClose: () => void;
@@ -10,7 +11,7 @@ export interface ObtainingXMLDialogProps {
 }
 
 
-export default function AddStorageDialog(props: ObtainingXMLDialogProps){
+export default function AddStorageDialog(props: ObtainingXMLDialogProps) {
     const { handleClose, open, handleAdd, ...other } = props;
 
     const handleAddInternal = () => {
@@ -19,13 +20,13 @@ export default function AddStorageDialog(props: ObtainingXMLDialogProps){
     }
 
     return (
-        <BootstrapDialog 
+        <BootstrapDialog
             onClose={handleClose}
-            open= {open}
+            open={open}
             aria-labelledby="customized-dialog-title"
             style={{
                 minWidth: 400,
-                
+
             }}
         >
             <BootstrapDialogTitle id={'customized-dialog-title'} onClose={handleClose}>
@@ -33,21 +34,21 @@ export default function AddStorageDialog(props: ObtainingXMLDialogProps){
             </BootstrapDialogTitle>
             <DialogContent>
                 <Box
-                display="flex"
-                flexDirection="column"
-                gap={2}
-                width={400}
-                mt={2}>
-                    <TextField id="outlined-basic" label="Storage name(optional)" 
-                    variant="outlined"/>
-                    <TextField id="outlined-basic" label="Bucket name" 
-                    variant="outlined"/>
-                    <TextField id="outlined-basic" label="Account ID" 
-                    variant="outlined"/>
-                    <TextField id="outlined-basic" label="Bucket ID" 
-                    variant="outlined"/>
-                    <TextField id="outlined-basic" label="Bucket Secret Key" 
-                    variant="outlined"/>
+                    display="flex"
+                    flexDirection="column"
+                    gap={2}
+                    width={400}
+                    mt={2}>
+                    <TextField id="outlined-basic" label="Storage name(optional)"
+                        variant="outlined" />
+                    <TextField id="outlined-basic" label="Bucket name"
+                        variant="outlined" />
+                    <TextField id="outlined-basic" label="Account ID"
+                        variant="outlined" />
+                    <TextField id="outlined-basic" label="Bucket ID"
+                        variant="outlined" />
+                    <TextField id="outlined-basic" label="Bucket Secret Key"
+                        variant="outlined" />
 
                 </Box>
             </DialogContent>
@@ -57,10 +58,10 @@ export default function AddStorageDialog(props: ObtainingXMLDialogProps){
                     padding: '16px 24px',
                 }}
             >
-                <Button onClick={handleClose} variant="outlined" color="primary">
+                <Button onClick={handleClose} variant="outlined" color="error" endIcon={<CancelIcon />}>
                     Cancel
                 </Button>
-                <Button onClick={handleAddInternal} variant="contained" color="primary">
+                <Button onClick={handleAddInternal} variant="contained" color="primary" startIcon={<CheckCircleIcon />}>
                     Save
                 </Button>
             </DialogActions>

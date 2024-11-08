@@ -8,6 +8,7 @@ import StorageTable from "@/components/StorageTable";
 import { StorageTableRow } from "@/components/StorageTable";
 import HorizontalLinearStepper from "@/components/Stepper";
 import Link from "next/link";
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 import { invoke } from "@tauri-apps/api/core";
 
@@ -96,6 +97,7 @@ export default function Home() {
                   variant="contained"
                   sx={{ mt: 4 }}
                   disabled={isEditDisabled}
+                  endIcon={<ArrowRightIcon />}
                 >
                   Continue
                 </Button>
