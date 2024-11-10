@@ -3,8 +3,8 @@ import DialogContent from '@mui/material/DialogContent';
 import Typography from '@mui/material/Typography';
 import { Box, Button, DialogActions, Stack, TextField } from '@mui/material';
 import { BootstrapDialog, BootstrapDialogTitle } from './shared';
-import { Grid } from '@mui/material';
-import { width } from '@mui/system';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 
 export interface ObtainingXMLDialogProps {
@@ -137,10 +137,10 @@ export default function EditTargetDialog(props: ObtainingXMLDialogProps) {
                     padding: '16px 24px',
                 }}
             >
-                <Button onClick={handleClose} variant="outlined" color="primary">
+                <Button onClick={handleClose} variant="outlined" color="error" endIcon={<CancelIcon />}>
                     Cancel
                 </Button>
-                <Button onClick={() => {handleClose()}} variant="contained" color="primary">
+                <Button onClick={() => { handleClose() }} variant="contained" color="primary" endIcon={<CheckCircleIcon />}>
                     Save
                 </Button>
             </DialogActions>

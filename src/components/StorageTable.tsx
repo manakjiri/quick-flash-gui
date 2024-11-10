@@ -6,6 +6,10 @@ import EditStorageDialog from "./EditStorageDialog";
 import AddStorageDialog from "./AddStorageDialog";
 import DeleteConfirmation from "./DeleteConfirmation";
 import { useRouter } from "next/navigation";
+import EditIcon from '@mui/icons-material/Edit';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+
 import {
   DataGrid,
   GridColDef,
@@ -45,7 +49,7 @@ const columns: GridColDef<StorageTableRow>[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-          {cellValues.value}
+            {cellValues.value}
           </Typography>
         </Box>
       );
@@ -59,7 +63,7 @@ const columns: GridColDef<StorageTableRow>[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-          {cellValues.value}
+            {cellValues.value}
           </Typography>
         </Box>
       );
@@ -78,7 +82,6 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openAddDialog, setOpenAddDialog] = useState(false);
   const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<GridRowParams | null>(null);
 
   return (
     <>
@@ -86,13 +89,14 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
         sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
       >
         <Box sx={{ display: "flex", gap: 1 }}>
-          <Button  onClick={() => setOpenAddDialog(true)}>
+          <Button onClick={() => setOpenAddDialog(true)} startIcon={<AddCircleIcon />}>
             Add
           </Button>
           <Button
             disabled={isEditDisabled}
             onClick={() => setOpenRemoveDialog(true)}
             color="error"
+            startIcon={<RemoveCircleIcon />}
           >
             Remove
           </Button>
@@ -103,19 +107,20 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
             variant="outlined"
             disabled={isEditDisabled}
             onClick={() => setOpenEditDialog(true)}
+            startIcon={<EditIcon />}
           >
             Edit
           </Button>
         </Box>
       </GridToolbarContainer>
-      <EditStorageDialog handleClose={() => setOpenEditDialog(false)} open={openEditDialog} handleEdit={() => {}} handleDelete={() => {}} />
-      <AddStorageDialog handleClose={() => setOpenAddDialog(false)} open={openAddDialog} handleAdd={() => {}}/>
-      <DeleteConfirmation handleClose={() => setOpenRemoveDialog(false)} open={openRemoveDialog} handleConfirm={() => {}}/>
+      <EditStorageDialog handleClose={() => setOpenEditDialog(false)} open={openEditDialog} handleEdit={() => { }} handleDelete={() => { }} />
+      <AddStorageDialog handleClose={() => setOpenAddDialog(false)} open={openAddDialog} handleAdd={() => { }} />
+      <DeleteConfirmation handleClose={() => setOpenRemoveDialog(false)} open={openRemoveDialog} handleConfirm={() => { }} />
     </>
   );
 }
 
-export default function StorageTable({ rows, onEditDisabledChange  }: { rows: StorageTableRow[], onEditDisabledChange: (value: boolean) => void }) {
+export default function StorageTable({ rows, onEditDisabledChange }: { rows: StorageTableRow[], onEditDisabledChange: (value: boolean) => void }) {
   const router = useRouter();
   const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (
     params: GridRowParams

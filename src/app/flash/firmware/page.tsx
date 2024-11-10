@@ -1,6 +1,6 @@
 "use client";
 
-import {Box, Button, Container} from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
@@ -8,6 +8,8 @@ import FirmwareTable from "@/components/FirmwareTable";
 import { FirmwareTableRow } from "@/components/FirmwareTable";
 import HorizontalLinearStepper from "@/components/Stepper";
 import Link from "next/link";
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 import { invoke } from '@tauri-apps/api/core';
 
@@ -18,7 +20,7 @@ export default function Home() {
     { id: 1, name: "fizzbuzz", date: "10.2.2021" },
     { id: 2, name: "control", date: "1.1.2020" },
   ]);
-  
+
   const [isEditDisabled, setIsEditDisabled] = useState(true);
 
   const handleEditDisabledChange = (newState: boolean) => {
@@ -44,7 +46,7 @@ export default function Home() {
           >
             Start something
           </Button> */
-          <Box
+            <Box
               display="flex"
               flexDirection="row"
               alignItems="center"
@@ -58,6 +60,7 @@ export default function Home() {
                 <Button
                   variant="outlined"
                   sx={{ mt: 4 }}
+                  startIcon={<ArrowLeftIcon />}
                 >
                   Back
                 </Button>
@@ -71,6 +74,7 @@ export default function Home() {
                   variant="contained"
                   sx={{ mt: 4 }}
                   disabled={isEditDisabled}
+                  endIcon={<ArrowRightIcon />}
                 >
                   Continue
                 </Button>
