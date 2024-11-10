@@ -82,7 +82,6 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openAddDialog, setOpenAddDialog] = useState(false);
   const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<GridRowParams | null>(null);
 
   return (
     <>
@@ -97,7 +96,7 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
             disabled={isEditDisabled}
             onClick={() => setOpenRemoveDialog(true)}
             color="error"
-            endIcon={<RemoveCircleIcon />}
+            startIcon={<RemoveCircleIcon />}
           >
             Remove
           </Button>
