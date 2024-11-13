@@ -6,9 +6,9 @@ import EditStorageDialog from "./EditStorageDialog";
 import AddStorageDialog from "./AddStorageDialog";
 import DeleteConfirmation from "./DeleteConfirmation";
 import { useRouter } from "next/navigation";
-import EditIcon from '@mui/icons-material/Edit';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import EditIcon from "@mui/icons-material/Edit";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import {
   DataGrid,
@@ -113,28 +113,43 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
           </Button>
         </Box>
       </GridToolbarContainer>
-      <EditStorageDialog handleClose={() => setOpenEditDialog(false)} open={openEditDialog} handleEdit={() => { }} handleDelete={() => { }} />
-      <AddStorageDialog handleClose={() => setOpenAddDialog(false)} open={openAddDialog} handleAdd={() => { }} />
-      <DeleteConfirmation handleClose={() => setOpenRemoveDialog(false)} open={openRemoveDialog} handleConfirm={() => { }} />
+      <EditStorageDialog
+        handleClose={() => setOpenEditDialog(false)}
+        open={openEditDialog}
+        handleEdit={() => {}}
+        handleDelete={() => {}}
+      />
+      <AddStorageDialog
+        handleClose={() => setOpenAddDialog(false)}
+        open={openAddDialog}
+        handleAdd={() => {}}
+      />
+      <DeleteConfirmation
+        handleClose={() => setOpenRemoveDialog(false)}
+        open={openRemoveDialog}
+        handleConfirm={() => {}}
+      />
     </>
   );
 }
 
-export default function StorageTable({ rows, onEditDisabledChange }: { rows: StorageTableRow[], onEditDisabledChange: (value: boolean) => void }) {
+export default function StorageTable({
+  rows,
+  onEditDisabledChange,
+}: {
+  rows: StorageTableRow[];
+  onEditDisabledChange: (value: boolean) => void;
+}) {
   const router = useRouter();
-  const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (
-    params: GridRowParams
-  ) => {
+  const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (params: GridRowParams) => {
     // Handles the double click event
     console.log("Row double-clicked:", params.row);
-    router.push('/flash/firmware');
+    router.push("/flash/firmware");
   };
 
   const [isEditDisabled, setIsEditDisabled] = useState(true);
 
-  const handleRowClick: GridEventListener<"rowClick"> = (
-    params: GridRowParams
-  ) => {
+  const handleRowClick: GridEventListener<"rowClick"> = (params: GridRowParams) => {
     setIsEditDisabled(false); // Enable the Edit button on row click
     onEditDisabledChange(false);
   };
@@ -150,7 +165,7 @@ export default function StorageTable({ rows, onEditDisabledChange }: { rows: Sto
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5
+              pageSize: 5,
             },
           },
         }}

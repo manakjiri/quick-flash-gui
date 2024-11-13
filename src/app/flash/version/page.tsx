@@ -8,11 +8,10 @@ import VersionTable from "@/components/VersionTable";
 import { VersionTableRow } from "@/components/VersionTable";
 import HorizontalLinearStepper from "@/components/Stepper";
 import Link from "next/link";
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 //import { invoke } from '@tauri-apps/api/core';
-
 
 export default function Home() {
   const [activeStep, setActiveStep] = React.useState(2);
@@ -38,10 +37,10 @@ export default function Home() {
             <HorizontalLinearStepper activeStep={activeStep} />
           </Box>
           <Box sx={{ mt: 4 }}>
-            <VersionTable rows={rows}
-              onEditDisabledChange={handleEditDisabledChange} />
+            <VersionTable rows={rows} onEditDisabledChange={handleEditDisabledChange} />
           </Box>
-          {/* <Button
+          {
+            /* <Button
             variant="contained"
             sx={{ mt: 4 }}
             disabled={loading}
@@ -56,15 +55,8 @@ export default function Home() {
               justifyContent="space-between"
               gap={1}
             >
-              <Link
-                href="/flash/firmware"
-                passHref
-              >
-                <Button
-                  variant="outlined"
-                  sx={{ mt: 4 }}
-                  startIcon={<ArrowLeftIcon />}
-                >
+              <Link href="/flash/firmware" passHref>
+                <Button variant="outlined" sx={{ mt: 4 }} startIcon={<ArrowLeftIcon />}>
                   Back
                 </Button>
               </Link>
@@ -82,7 +74,8 @@ export default function Home() {
                   Continue
                 </Button>
               </Link>
-            </Box>}
+            </Box>
+          }
           <Box></Box>
         </Box>
       </Container>

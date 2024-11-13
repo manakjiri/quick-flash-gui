@@ -8,17 +8,28 @@ import TargetTable from "@/components/TargetTable";
 import { TargetTableRow } from "@/components/TargetTable";
 import HorizontalLinearStepper from "@/components/Stepper";
 import Link from "next/link";
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-import { invoke } from '@tauri-apps/api/core';
-
+import { invoke } from "@tauri-apps/api/core";
 
 export default function Home() {
   const [activeStep, setActiveStep] = React.useState(3);
   const [rows, setRows] = useState<TargetTableRow[]>([
-    { id: 0, name: "MainProbe", date: "5.11.2024 6:55", manufacturer: "raspberry", lastUsed: "21.10.2024" },
-    { id: 1, name: "FakeProbe", date: "1.1.1999 0:00", manufacturer: "linx", lastUsed: "20.3.2021" },
+    {
+      id: 0,
+      name: "MainProbe",
+      date: "5.11.2024 6:55",
+      manufacturer: "raspberry",
+      lastUsed: "21.10.2024",
+    },
+    {
+      id: 1,
+      name: "FakeProbe",
+      date: "1.1.1999 0:00",
+      manufacturer: "linx",
+      lastUsed: "20.3.2021",
+    },
   ]);
 
   const [isEditDisabled, setIsEditDisabled] = useState(true);
@@ -35,10 +46,10 @@ export default function Home() {
             <HorizontalLinearStepper activeStep={activeStep} />
           </Box>
           <Box sx={{ mt: 4 }}>
-            <TargetTable rows={rows}
-              onEditDisabledChange={handleEditDisabledChange} />
+            <TargetTable rows={rows} onEditDisabledChange={handleEditDisabledChange} />
           </Box>
-          {/* <Button
+          {
+            /* <Button
             variant="contained"
             sx={{ mt: 4 }}
             disabled={loading}
@@ -53,15 +64,8 @@ export default function Home() {
               justifyContent="space-between"
               gap={1}
             >
-              <Link
-                href="/flash/version"
-                passHref
-              >
-                <Button
-                  variant="outlined"
-                  sx={{ mt: 4 }}
-                  startIcon={<ArrowLeftIcon />}
-                >
+              <Link href="/flash/version" passHref>
+                <Button variant="outlined" sx={{ mt: 4 }} startIcon={<ArrowLeftIcon />}>
                   Back
                 </Button>
               </Link>
@@ -79,7 +83,8 @@ export default function Home() {
                   Continue
                 </Button>
               </Link>
-            </Box>}
+            </Box>
+          }
           <Box></Box>
         </Box>
       </Container>

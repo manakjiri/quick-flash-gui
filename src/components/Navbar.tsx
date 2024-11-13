@@ -67,7 +67,7 @@ function Navbar() {
                 </Typography>
               </Stack>
             </Link>
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }}}>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -96,19 +96,11 @@ function Navbar() {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                <MenuItem
-                  component={NextLink}
-                  href="/flash/storage"
-                  onClick={handleCloseNavMenu}
-                >
+                <MenuItem component={NextLink} href="/flash/storage" onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Flash</Typography>
                 </MenuItem>
 
-                <MenuItem
-                  component={NextLink}
-                  href="/"
-                  onClick={handleCloseNavMenu}
-                >
+                <MenuItem component={NextLink} href="/" onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">About</Typography>
                 </MenuItem>
               </Menu>
@@ -150,9 +142,7 @@ function Navbar() {
               </Stack>
             </Link>
 
-            <Box
-              sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
-            ></Box>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
 
             <Button
               color="primary"

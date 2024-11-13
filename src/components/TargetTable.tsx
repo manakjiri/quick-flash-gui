@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import EditTargetDialog from "@/components/EditTargetDialog";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 import {
   DataGrid,
   GridColDef,
@@ -29,7 +29,6 @@ const columns: GridColDef<TargetTableRow>[] = [
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
-
           <Typography variant="body2" sx={{ ml: 1 }}>
             {cellValues.value}
           </Typography>
@@ -95,9 +94,7 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
 
   return (
     <>
-      <GridToolbarContainer
-        sx={{ display: "flex", justifyContent: "flex-end" }}
-      >
+      <GridToolbarContainer sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           variant="outlined"
           disabled={isEditDisabled}
@@ -112,23 +109,24 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
   );
 }
 
-export default function TargetTable({ rows, onEditDisabledChange }: { rows: any, onEditDisabledChange: (value: boolean) => void }) {
-
+export default function TargetTable({
+  rows,
+  onEditDisabledChange,
+}: {
+  rows: any;
+  onEditDisabledChange: (value: boolean) => void;
+}) {
   const [isEditDisabled, setIsEditDisabled] = useState(true);
 
-  const handleRowClick: GridEventListener<"rowClick"> = (
-    params: GridRowParams
-  ) => {
+  const handleRowClick: GridEventListener<"rowClick"> = (params: GridRowParams) => {
     setIsEditDisabled(false); // Enable the Edit button on row click
     onEditDisabledChange(false);
   };
   const router = useRouter();
-  const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (
-    params: GridRowParams
-  ) => {
+  const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (params: GridRowParams) => {
     // Handles the double click event
     console.log("Row double-clicked:", params.row);
-    router.push('/flash/final');
+    router.push("/flash/final");
   };
 
   return (

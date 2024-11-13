@@ -8,10 +8,10 @@ import FirmwareTable from "@/components/FirmwareTable";
 import { FirmwareTableRow } from "@/components/FirmwareTable";
 import HorizontalLinearStepper from "@/components/Stepper";
 import Link from "next/link";
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from "@tauri-apps/api/core";
 
 export default function Home() {
   const [activeStep, setActiveStep] = React.useState(1);
@@ -35,10 +35,10 @@ export default function Home() {
             <HorizontalLinearStepper activeStep={activeStep} />
           </Box>
           <Box sx={{ mt: 4 }}>
-            <FirmwareTable rows={rows}
-              onEditDisabledChange={handleEditDisabledChange} />
+            <FirmwareTable rows={rows} onEditDisabledChange={handleEditDisabledChange} />
           </Box>
-          {/* <Button
+          {
+            /* <Button
             variant="contained"
             sx={{ mt: 4 }}
             disabled={loading}
@@ -53,15 +53,8 @@ export default function Home() {
               justifyContent="space-between"
               gap={1}
             >
-              <Link
-                href="/flash/storage"
-                passHref
-              >
-                <Button
-                  variant="outlined"
-                  sx={{ mt: 4 }}
-                  startIcon={<ArrowLeftIcon />}
-                >
+              <Link href="/flash/storage" passHref>
+                <Button variant="outlined" sx={{ mt: 4 }} startIcon={<ArrowLeftIcon />}>
                   Back
                 </Button>
               </Link>
@@ -79,7 +72,8 @@ export default function Home() {
                   Continue
                 </Button>
               </Link>
-            </Box>}
+            </Box>
+          }
           <Box></Box>
         </Box>
       </Container>

@@ -8,7 +8,7 @@ import StorageTable from "@/components/StorageTable";
 import { StorageTableRow } from "@/components/StorageTable";
 import HorizontalLinearStepper from "@/components/Stepper";
 import Link from "next/link";
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 import { invoke } from "@tauri-apps/api/core";
 
@@ -55,7 +55,7 @@ export default function Home() {
             date: new Date(value.timestamp * 1000).toLocaleString(),
             connectionStatus: "Connected",
           };
-        })
+        }),
       );
     });
   };
@@ -68,10 +68,7 @@ export default function Home() {
             <HorizontalLinearStepper activeStep={activeStep} />
           </Box>
           <Box sx={{ mt: 4 }}>
-            <StorageTable
-              rows={rows}
-              onEditDisabledChange={handleEditDisabledChange}
-            />
+            <StorageTable rows={rows} onEditDisabledChange={handleEditDisabledChange} />
           </Box>
           {
             /* <Button
@@ -82,12 +79,7 @@ export default function Home() {
           >
             Start something
           </Button> */
-            <Box
-              display="flex"
-              flexDirection="column"
-              alignItems="flex-end"
-              gap={1}
-            >
+            <Box display="flex" flexDirection="column" alignItems="flex-end" gap={1}>
               <Link
                 href="/flash/firmware"
                 passHref

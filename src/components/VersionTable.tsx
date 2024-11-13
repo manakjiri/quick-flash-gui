@@ -26,9 +26,8 @@ const columns: GridColDef<VersionTableRow>[] = [
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
-
           <Typography variant="body2" sx={{ ml: 1 }}>
-          {cellValues.value}
+            {cellValues.value}
           </Typography>
         </Box>
       );
@@ -42,7 +41,7 @@ const columns: GridColDef<VersionTableRow>[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-          {cellValues.value}
+            {cellValues.value}
           </Typography>
         </Box>
       );
@@ -56,7 +55,7 @@ const columns: GridColDef<VersionTableRow>[] = [
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Typography variant="body2" sx={{ ml: 1 }}>
-          {cellValues.value}
+            {cellValues.value}
           </Typography>
         </Box>
       );
@@ -64,23 +63,25 @@ const columns: GridColDef<VersionTableRow>[] = [
   },
 ];
 
-export default function VersionTable({ rows, onEditDisabledChange }: { rows: any, onEditDisabledChange: (value: boolean) => void }) {
+export default function VersionTable({
+  rows,
+  onEditDisabledChange,
+}: {
+  rows: any;
+  onEditDisabledChange: (value: boolean) => void;
+}) {
   const [isEditDisabled, setIsEditDisabled] = useState(true);
 
-  const handleRowClick: GridEventListener<"rowClick"> = (
-    params: GridRowParams
-  ) => {
+  const handleRowClick: GridEventListener<"rowClick"> = (params: GridRowParams) => {
     setIsEditDisabled(false); // Enable the Edit button on row click
     onEditDisabledChange(false);
   };
 
   const router = useRouter();
-  const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (
-    params: GridRowParams
-  ) => {
+  const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (params: GridRowParams) => {
     // Handles the double click event
     console.log("Row double-clicked:", params.row);
-    router.push('/flash/target');
+    router.push("/flash/target");
   };
 
   return (
