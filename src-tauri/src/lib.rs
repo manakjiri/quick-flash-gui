@@ -70,10 +70,23 @@ fn remove_storage_credentials(
         .map_err(|e| format!("{}: {}", ERR_STORAGE_REMOVE, e.to_string()))
 }
 
+fn get_credentials(
+    manager: &CredentialsManager,
+    user_storage_name: &str,
+) -> Result<Credentials, String> {
+    manager
+        .get_all()
+        .map_err(|e| e.to_string())?
+        .into_iter()
+        .find(|c| c.user_storage_name == user_storage_name)
+        .ok_or_else(|| "Credentials not found".to_string())
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct FirmwareName {
     pub name: String,
-    pub last_modified: String,
+    /// unix timestamp in seconds
+    pub last_modified: i64,
 }
 
 #[tauri::command]
@@ -81,12 +94,7 @@ fn get_firmware_names(
     manager: tauri::State<CredentialsManager>,
     user_storage_name: String,
 ) -> Result<Vec<FirmwareName>, String> {
-    let creds = manager
-        .get_all()
-        .map_err(|e| e.to_string())?
-        .into_iter()
-        .find(|c| c.user_storage_name == user_storage_name)
-        .ok_or_else(|| "Credentials not found".to_string())?;
+    let creds = get_credentials(&manager, &user_storage_name)?;
     let storage = Storage::new(&creds).map_err(|e| e.to_string())?;
     let firmware_names = storage
         .list_firmwares()
@@ -103,7 +111,8 @@ fn get_firmware_names(
 #[derive(Serialize, Deserialize, Debug)]
 pub struct FirmwareVersion {
     pub version: String,
-    pub last_modified: String,
+    /// unix timestamp in seconds
+    pub last_modified: i64,
 }
 
 #[tauri::command]
@@ -112,12 +121,7 @@ fn get_firmware_versions(
     user_storage_name: String,
     firmware_name: String,
 ) -> Result<Vec<FirmwareVersion>, String> {
-    let creds = manager
-        .get_all()
-        .map_err(|e| e.to_string())?
-        .into_iter()
-        .find(|c| c.user_storage_name == user_storage_name)
-        .ok_or_else(|| "Credentials not found".to_string())?;
+    let creds = get_credentials(&manager, &user_storage_name)?;
     let storage = Storage::new(&creds).map_err(|e| e.to_string())?;
     let firmware_versions = storage
         .list_firmware_versions(&firmware_name)

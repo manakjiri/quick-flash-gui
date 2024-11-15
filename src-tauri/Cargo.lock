@@ -3540,7 +3540,7 @@ dependencies = [
 [[package]]
 name = "quick-flash"
 version = "0.3.0"
-source = "git+https://github.com/manakjiri/quick-flash.git?rev=c07d5f8e714b2d6fb4fbdbe992570d82bbb01749#c07d5f8e714b2d6fb4fbdbe992570d82bbb01749"
+source = "git+https://github.com/manakjiri/quick-flash.git?rev=e71fbf7256890c49f29d494951f269f5d85fd300#e71fbf7256890c49f29d494951f269f5d85fd300"
 dependencies = [
  "anyhow",
  "chrono",
