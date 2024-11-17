@@ -3,7 +3,7 @@
 import { Box, Button, Container } from "@mui/material";
 import * as React from "react";
 import Typography from "@mui/material/Typography";
-import { useState, useCallback } from "react";
+import { useState, useEffect } from "react";
 import StorageTable from "@/components/StorageTable";
 import { StorageTableRow } from "@/components/StorageTable";
 import HorizontalLinearStepper from "@/components/Stepper";
@@ -87,6 +87,7 @@ export default function Home() {
     }
     const curr_id = selectedStorage.row.id;
     toggleRowVisibility(curr_id);
+    sessionStorage.removeItem("storageToDelete"); // Clean up
     console.log("Undo action triggered.");
   };
 
@@ -98,11 +99,11 @@ export default function Home() {
   
     // Toggle visibility using the latest selected_storage
     toggleRowVisibility(selectedStorage.row.id);
-  
+    sessionStorage.setItem("storageToDelete", selectedStorage.row.name);
     // Show toast notification with undo action
     toastManagerRef.current?.showToast({
       type: "warning",
-      message: `Deleted a storage! - ${selectedStorage.row.name}`,
+      message: `Deleted ${selectedStorage.row.name}!`,
       duration: 7000,
       action: {
         label: "Undo",
@@ -118,6 +119,20 @@ export default function Home() {
   }; 
 
   const handleEditAction = () => {};
+
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      console.log("Page is about to be refreshed or closed");
+      // Perform any necessary cleanup or save data here
+    };
+  
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <main>
