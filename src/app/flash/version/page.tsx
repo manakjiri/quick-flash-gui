@@ -23,7 +23,6 @@ export default function Home() {
     { id: 4, name: "18", date: "15.6.2021", chipName: "fintel" },
   ]);
   //second mock table
-
   const [rows_B, setRows_B] = useState<VersionTableRow[]>([
     { id: 0, name: "6ef8 ", date: "13.10.2020", chipName: "raspberry" },
     { id: 1, name: "2b1a", date: "19.6.2020", chipName: "raspberry" },

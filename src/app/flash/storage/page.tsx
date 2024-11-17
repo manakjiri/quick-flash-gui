@@ -3,7 +3,7 @@
 import { Box, Button, Container } from "@mui/material";
 import * as React from "react";
 import Typography from "@mui/material/Typography";
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import StorageTable from "@/components/StorageTable";
 import { StorageTableRow } from "@/components/StorageTable";
 import HorizontalLinearStepper from "@/components/Stepper";
@@ -25,7 +25,7 @@ interface StorageCredentials {
 }
 
 export default function Home() {
-  const [selectedStorage, setSelectedStorage] = useState<GridRowParams | null>(null);
+  const selectedStorage = useRef<GridRowParams | null>(null);
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [rows, setRows] = useState<StorageTableRow[]>([
@@ -56,13 +56,9 @@ export default function Home() {
   const [isEditDisabled, setIsEditDisabled] = useState(true);
 
   const handleEditDisabledChange = (newState: boolean, newRow: GridRowParams) => {
-    setSelectedStorage(newRow);
+    sessionStorage.setItem("selectedStorage", newRow.row.name);
     setIsEditDisabled(newState);
-    if(selectedStorage)
-    {
-      console.log(selectedStorage.row.name);
-      sessionStorage.setItem("selectedStorage", selectedStorage.row.name);
-    }
+    selectedStorage.current = newRow;
   };
 
   const handleStart = () => {
@@ -84,11 +80,11 @@ export default function Home() {
   const toastManagerRef = React.useRef<{ showToast: Function }>(null);
 
   const handleUndoAction = () => {
-    if (!selectedStorage) {
+    if (!selectedStorage.current) {
       console.error("No storage selected for Undo");
       return;
     }
-    const curr_id = selectedStorage.row.id;
+    const curr_id = selectedStorage.current.row.id;
     toggleRowVisibility(curr_id);
     sessionStorage.removeItem("storageToDelete"); // Clean up
     setIsEditDisabled(false);
@@ -96,19 +92,19 @@ export default function Home() {
   };
 
   const handleDeleteAction = () => {
-    if (!selectedStorage) {
+    if (!selectedStorage.current) {
       console.error("No storage selected for deletion");
       return;
     }
-  
+    const s_Name = selectedStorage.current.row.name;
     // Toggle visibility using the latest selected_storage
-    toggleRowVisibility(selectedStorage.row.id);
-    sessionStorage.setItem("storageToDelete", selectedStorage.row.name);
+    toggleRowVisibility(selectedStorage.current.row.id);
+    sessionStorage.setItem("storageToDelete", s_Name);
     setIsEditDisabled(true);
     // Show toast notification with undo action
     toastManagerRef.current?.showToast({
       type: "warning",
-      message: `Deleted ${selectedStorage.row.name}!`,
+      message: `Deleted ${s_Name}!`,
       duration: 7000,
       action: {
         label: "Undo",
@@ -117,9 +113,9 @@ export default function Home() {
       onAutoClose: () => {
         console.log("Toast duration ended! Performing auto-close action...");
         invoke<StorageCredentials[]>("remove_storage_credentials", {
-          user_storage_name: selectedStorage.row.name,
+          user_storage_name: s_Name,
         });
-        setSelectedStorage(null);
+        selectedStorage.current = null;
       },
     });
   }; 
