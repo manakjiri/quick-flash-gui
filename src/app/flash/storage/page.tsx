@@ -59,7 +59,10 @@ export default function Home() {
     setSelectedStorage(newRow);
     setIsEditDisabled(newState);
     if(selectedStorage)
+    {
       console.log(selectedStorage.row.name);
+      sessionStorage.setItem("selectedStorage", selectedStorage.row.name);
+    }
   };
 
   const handleStart = () => {
