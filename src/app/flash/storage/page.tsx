@@ -79,6 +79,9 @@ export default function Home() {
         label: "Undo",
         onClick: () => handleUndoAction,
       },
+      onAutoClose: () => {
+        console.log('Toast duration ended! Performing auto-close action...');
+      },
     });
   }
   const handleEditAction = () => {
