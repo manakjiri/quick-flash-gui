@@ -3,7 +3,7 @@
 import { Box, Button, Container } from "@mui/material";
 import * as React from "react";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import StorageTable from "@/components/StorageTable";
 import { StorageTableRow } from "@/components/StorageTable";
 import HorizontalLinearStepper from "@/components/Stepper";
@@ -25,7 +25,7 @@ interface StorageCredentials {
 }
 
 export default function Home() {
-  let selected_storage: GridRowParams;
+  const [selectedStorage, setSelectedStorage] = useState<GridRowParams | null>(null);
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [rows, setRows] = useState<StorageTableRow[]>([
@@ -56,10 +56,10 @@ export default function Home() {
   const [isEditDisabled, setIsEditDisabled] = useState(true);
 
   const handleEditDisabledChange = (newState: boolean, newRow: GridRowParams) => {
+    setSelectedStorage(newRow);
     setIsEditDisabled(newState);
-    selected_storage = newRow;
-    const rowData = newRow.row;
-    console.log(rowData.name);
+    if(selectedStorage)
+      console.log(selectedStorage.row.name);
   };
 
   const handleStart = () => {
@@ -81,16 +81,28 @@ export default function Home() {
   const toastManagerRef = React.useRef<{ showToast: Function }>(null);
 
   const handleUndoAction = () => {
-    toggleRowVisibility(selected_storage.row.id);
+    if (!selectedStorage) {
+      console.error("No storage selected for Undo");
+      return;
+    }
+    const curr_id = selectedStorage.row.id;
+    toggleRowVisibility(curr_id);
     console.log("Undo action triggered.");
   };
 
   const handleDeleteAction = () => {
-    //TODO: handle delete logic here
-    toggleRowVisibility(selected_storage.row.id);
+    if (!selectedStorage) {
+      console.error("No storage selected for deletion");
+      return;
+    }
+  
+    // Toggle visibility using the latest selected_storage
+    toggleRowVisibility(selectedStorage.row.id);
+  
+    // Show toast notification with undo action
     toastManagerRef.current?.showToast({
       type: "warning",
-      message: "Deleted a storage! - " + selected_storage.row.name,
+      message: `Deleted a storage! - ${selectedStorage.row.name}`,
       duration: 7000,
       action: {
         label: "Undo",
@@ -99,11 +111,12 @@ export default function Home() {
       onAutoClose: () => {
         console.log("Toast duration ended! Performing auto-close action...");
         invoke<StorageCredentials[]>("remove_storage_credentials", {
-          user_storage_name: selected_storage.row.name,
+          user_storage_name: selectedStorage.row.name,
         });
       },
     });
-  };
+  }; 
+
   const handleEditAction = () => {};
 
   return (
