@@ -9,6 +9,7 @@ import { StorageTableRow } from "@/components/StorageTable";
 import HorizontalLinearStepper from "@/components/Stepper";
 import Link from "next/link";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import ToastManager from "@/components/ToastManager";
 
 import { invoke } from "@tauri-apps/api/core";
 
@@ -60,6 +61,30 @@ export default function Home() {
     });
   };
 
+  const toastManagerRef = React.useRef<{ showToast: Function }>(null);
+
+  const handleUndoAction = () => {
+    //TODO: Revert the change associated with the toast
+    console.log("Undo action triggered.")
+  };
+
+  const handleDeleteAction = () => {
+    //TODO: handle delete logic here
+
+    toastManagerRef.current?.showToast({
+      type: "warning",
+      message: "Deleted a storage!",
+      duration: 7000,
+      action: {
+        label: "Undo",
+        onClick: () => handleUndoAction,
+      },
+    });
+  }
+  const handleEditAction = () => {
+
+  }
+
   return (
     <main>
       <Container maxWidth="xl">
@@ -68,7 +93,13 @@ export default function Home() {
             <HorizontalLinearStepper activeStep={activeStep} />
           </Box>
           <Box sx={{ mt: 4 }}>
-            <StorageTable rows={rows} onEditDisabledChange={handleEditDisabledChange} />
+            <StorageTable
+             rows={rows}
+             onEditDisabledChange={handleEditDisabledChange}
+             handleClose={() => {}} 
+             open={false}
+             handleEdit={handleEditAction}
+             handleDelete={handleDeleteAction}/>
           </Box>
           {
             /* <Button
@@ -98,6 +129,7 @@ export default function Home() {
           }
           <Box></Box>
         </Box>
+        <ToastManager ref={toastManagerRef} />
       </Container>
     </main>
   );
