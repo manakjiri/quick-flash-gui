@@ -28,7 +28,7 @@ const ToastManager = forwardRef((props, ref) => {
         autoClose: duration,
         hideProgressBar: false,
         position: "bottom-center",
-        closeOnClick: true,
+        closeOnClick: false,
         pauseOnHover: true,
         draggable: false,
         progress: undefined,

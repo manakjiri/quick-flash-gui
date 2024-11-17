@@ -152,7 +152,7 @@ export default function StorageTable(
     handleDelete
   }: {
     rows: StorageTableRow[];
-    onEditDisabledChange: (value: boolean) => void;
+    onEditDisabledChange: (value: boolean, params: GridRowParams) => void;
   } & ObtainingXMLDialogProps,
 ) {
 
@@ -167,7 +167,8 @@ export default function StorageTable(
 
   const handleRowClick: GridEventListener<"rowClick"> = (params: GridRowParams) => {
     setIsEditDisabled(false); // Enable the Edit button on row click
-    onEditDisabledChange(false);
+    onEditDisabledChange(false, params);
+
   };
 
   return (

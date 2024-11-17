@@ -12,6 +12,7 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ToastManager from "@/components/ToastManager";
 
 import { invoke } from "@tauri-apps/api/core";
+import { GridRowParams } from "@mui/x-data-grid";
 
 interface StorageCredentials {
   user_storage_name: string;
@@ -24,6 +25,8 @@ interface StorageCredentials {
 }
 
 export default function Home() {
+  let selected_storage: GridRowParams;
+
   const [activeStep, setActiveStep] = React.useState(0);
   const [rows, setRows] = useState<StorageTableRow[]>([
     {
@@ -39,10 +42,24 @@ export default function Home() {
       connectionStatus: "OFFLINE",
     },
   ]);
+  const [hideRows, setHideRows] = useState<number[]>([]);
+
+  const toggleRowVisibility = (id: number) => {
+    setHideRows((prev) =>
+      prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id],
+    );
+  };
+
+  // Filter rows based on `hideRows` state
+  const filteredRows = rows.filter((row) => !hideRows.includes(row.id));
+
   const [isEditDisabled, setIsEditDisabled] = useState(true);
 
-  const handleEditDisabledChange = (newState: boolean) => {
+  const handleEditDisabledChange = (newState: boolean, newRow: GridRowParams) => {
     setIsEditDisabled(newState);
+    selected_storage = newRow;
+    const rowData = newRow.row;
+    console.log(rowData.name);
   };
 
   const handleStart = () => {
@@ -64,29 +81,30 @@ export default function Home() {
   const toastManagerRef = React.useRef<{ showToast: Function }>(null);
 
   const handleUndoAction = () => {
-    //TODO: Revert the change associated with the toast
-    console.log("Undo action triggered.")
+    toggleRowVisibility(selected_storage.row.id);
+    console.log("Undo action triggered.");
   };
 
   const handleDeleteAction = () => {
     //TODO: handle delete logic here
-
+    toggleRowVisibility(selected_storage.row.id);
     toastManagerRef.current?.showToast({
       type: "warning",
-      message: "Deleted a storage!",
+      message: "Deleted a storage! - " + selected_storage.row.name,
       duration: 7000,
       action: {
         label: "Undo",
-        onClick: () => handleUndoAction,
+        onClick: handleUndoAction,
       },
       onAutoClose: () => {
-        console.log('Toast duration ended! Performing auto-close action...');
+        console.log("Toast duration ended! Performing auto-close action...");
+        invoke<StorageCredentials[]>("remove_storage_credentials", {
+          user_storage_name: selected_storage.row.name,
+        });
       },
     });
-  }
-  const handleEditAction = () => {
-
-  }
+  };
+  const handleEditAction = () => {};
 
   return (
     <main>
@@ -97,12 +115,13 @@ export default function Home() {
           </Box>
           <Box sx={{ mt: 4 }}>
             <StorageTable
-             rows={rows}
-             onEditDisabledChange={handleEditDisabledChange}
-             handleClose={() => {}} 
-             open={false}
-             handleEdit={handleEditAction}
-             handleDelete={handleDeleteAction}/>
+              rows={filteredRows}
+              onEditDisabledChange={handleEditDisabledChange}
+              handleClose={() => {}}
+              open={false}
+              handleEdit={handleEditAction}
+              handleDelete={handleDeleteAction}
+            />
           </Box>
           {
             /* <Button
