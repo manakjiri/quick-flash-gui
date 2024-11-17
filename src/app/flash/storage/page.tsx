@@ -88,6 +88,7 @@ export default function Home() {
     const curr_id = selectedStorage.row.id;
     toggleRowVisibility(curr_id);
     sessionStorage.removeItem("storageToDelete"); // Clean up
+    setIsEditDisabled(false);
     console.log("Undo action triggered.");
   };
 
@@ -100,6 +101,7 @@ export default function Home() {
     // Toggle visibility using the latest selected_storage
     toggleRowVisibility(selectedStorage.row.id);
     sessionStorage.setItem("storageToDelete", selectedStorage.row.name);
+    setIsEditDisabled(true);
     // Show toast notification with undo action
     toastManagerRef.current?.showToast({
       type: "warning",
@@ -114,6 +116,7 @@ export default function Home() {
         invoke<StorageCredentials[]>("remove_storage_credentials", {
           user_storage_name: selectedStorage.row.name,
         });
+        setSelectedStorage(null);
       },
     });
   }; 
@@ -121,7 +124,7 @@ export default function Home() {
   const handleEditAction = () => {};
 
 
-  useEffect(() => {
+ /* useEffect(() => {
     const handleBeforeUnload = () => {
       console.log("Page is about to be refreshed or closed");
       // Perform any necessary cleanup or save data here
@@ -132,7 +135,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, []);
+  }, []);*/
 
   return (
     <main>
@@ -145,6 +148,7 @@ export default function Home() {
             <StorageTable
               rows={filteredRows}
               onEditDisabledChange={handleEditDisabledChange}
+              isEditDisabled={isEditDisabled}
               handleClose={() => {}}
               open={false}
               handleEdit={handleEditAction}

@@ -77,7 +77,7 @@ const columns: GridColDef<StorageTableRow>[] = [
 ];*/
 
 export interface ObtainingXMLDialogProps {
-  isEditDisabled?: boolean;
+  isEditDisabled: boolean;
   handleClose: () => void;
   open: boolean;
   handleEdit: () => void;
@@ -145,6 +145,7 @@ function EditToolbar(props: ObtainingXMLDialogProps) {
 export default function StorageTable({
   rows,
   onEditDisabledChange,
+  isEditDisabled,
   handleClose,
   open,
   handleEdit,
@@ -161,11 +162,11 @@ export default function StorageTable({
     router.push("/flash/firmware");
   };
 
-  const [isEditDisabled, setIsEditDisabled] = useState(true);
+  //const [isEditDisabled, setIsEditDisabled] = useState(true);
 
   const handleRowClick: GridEventListener<"rowClick"> = (params: GridRowParams) => {
     onEditDisabledChange(false, params);
-    setIsEditDisabled(false); // Enable the Edit button on row click
+    //setIsEditDisabled(false); // Enable the Edit button on row click
   };
 
   return (
