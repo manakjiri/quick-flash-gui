@@ -7,11 +7,6 @@ import Box from "@mui/material/Box";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const router = useRouter();
-
-  setTimeout(() => {
-    router.push("/flash/final/success");
-  }, 1000);
 
   return (
     <>

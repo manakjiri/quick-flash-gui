@@ -39,6 +39,15 @@ export default function Home() {
     },
   ]);
   const [isEditDisabled, setIsEditDisabled] = useState(true);
+  const handleContinueClick = async () => {
+    try {
+      await invoke("set_progress", { progress: 25 });
+      setActiveStep((prevStep) => prevStep + 1);
+    } catch (error) {
+      console.error("Error updating progress:", error);
+    }
+  };
+
 
   const handleEditDisabledChange = (newState: boolean) => {
     setIsEditDisabled(newState);
@@ -90,6 +99,7 @@ export default function Home() {
                   sx={{ mt: 4 }}
                   disabled={isEditDisabled}
                   endIcon={<ArrowRightIcon />}
+                  onClick={handleContinueClick}
                 >
                   Continue
                 </Button>

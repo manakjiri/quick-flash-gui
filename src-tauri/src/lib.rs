@@ -3,9 +3,48 @@ use quick_flash::{
 };
 use serde::{Deserialize, Serialize};
 
+use tauri::{State, Builder};
+use tauri::plugin::log::Builder as LogBuilder;
+use quick_flash::{credentials::CredentialsManager, storage::Storage, BaseDirs};
+
 const ERR_STORAGE_CONNECT: &str = "Failed to connect to storage using provided credentials";
 const ERR_STORAGE_ADD: &str = "Failed to add storage credentials";
 const ERR_STORAGE_REMOVE: &str = "Failed to remove storage credentials";
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct ProgressState {
+    pub progress: u32,
+}
+
+impl ProgressState {
+    pub fn new() -> Self {
+        ProgressState { progress: 0 }
+    }
+
+    pub fn set_progress(&mut self, progress: u32) {
+        self.progress = progress;
+    }
+
+    pub fn get_progress(&self) -> u32 {
+        self.progress
+    }
+}
+
+// Command to set progress
+#[tauri::command]
+fn set_progress(progress: u32, progress_state: tauri::State<'_, ProgressState>) {
+    let mut progress_state = progress_state.lock().unwrap();
+    progress_state.set_progress(progress);
+}
+
+// Command to get progress
+#[tauri::command]
+fn get_progress(progress_state: tauri::State<'_, ProgressState>) -> u32 {
+    let progress_state = progress_state.lock().unwrap();
+    progress_state.get_progress()
+}
+
+
 
 #[tauri::command]
 fn get_all_storage_credentials(
@@ -143,12 +182,15 @@ pub fn run() {
     tauri::Builder::default()
         .manage(dirs)
         .manage(creds)
+        .manage(ProgressState::new())
         .invoke_handler(tauri::generate_handler![get_all_storage_credentials])
         .invoke_handler(tauri::generate_handler![new_storage_credentials])
         .invoke_handler(tauri::generate_handler![check_storage_credentials])
         .invoke_handler(tauri::generate_handler![remove_storage_credentials])
         .invoke_handler(tauri::generate_handler![get_firmware_names])
         .invoke_handler(tauri::generate_handler![get_firmware_versions])
+        .invoke_handler(tauri::generate_handler![get_progress])
+        .invoke_handler(tauri::generate_handler![set_progress])
         .setup(|app| {
             if cfg!(debug_assertions) {
                 app.handle().plugin(

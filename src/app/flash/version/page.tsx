@@ -11,7 +11,8 @@ import Link from "next/link";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-//import { invoke } from '@tauri-apps/api/core';
+import { invoke } from "@tauri-apps/api/core";
+
 
 export default function Home() {
   const [activeStep, setActiveStep] = React.useState(2);
@@ -27,6 +28,15 @@ export default function Home() {
 
   const handleEditDisabledChange = (newState: boolean) => {
     setIsEditDisabled(newState);
+  };
+
+  const handleContinueClick = async () => {
+    try {
+      await invoke("set_progress", { progress: 75 });
+      setActiveStep((prevStep) => prevStep + 1);
+    } catch (error) {
+      console.error("Error updating progress:", error);
+    }
   };
 
   return (
@@ -70,6 +80,7 @@ export default function Home() {
                   sx={{ mt: 4 }}
                   disabled={isEditDisabled}
                   endIcon={<ArrowRightIcon />}
+                  onClick={handleContinueClick}
                 >
                   Continue
                 </Button>
