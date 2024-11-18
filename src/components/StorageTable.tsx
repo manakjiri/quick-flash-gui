@@ -76,8 +76,17 @@ const columns: GridColDef<StorageTableRow>[] = [
   { field: 'connectionStatus', headerName: 'Connection status', flex: 1 },
 ];*/
 
-function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
-  const apiRef = useGridApiContext();
+export interface ObtainingXMLDialogProps {
+  isEditDisabled: boolean;
+  handleClose: () => void;
+  open: boolean;
+  handleEdit: () => void;
+  handleDelete: () => void;
+}
+
+function EditToolbar(props: ObtainingXMLDialogProps) {
+  //const apiRef = useGridApiContext();
+  const { isEditDisabled, handleClose, open, handleEdit, handleDelete, ...other } = props;
 
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openAddDialog, setOpenAddDialog] = useState(false);
@@ -117,7 +126,7 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
         handleClose={() => setOpenEditDialog(false)}
         open={openEditDialog}
         handleEdit={() => {}}
-        handleDelete={() => {}}
+        handleDelete={handleDelete}
       />
       <AddStorageDialog
         handleClose={() => setOpenAddDialog(false)}
@@ -127,7 +136,7 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
       <DeleteConfirmation
         handleClose={() => setOpenRemoveDialog(false)}
         open={openRemoveDialog}
-        handleConfirm={() => {}}
+        handleConfirm={handleDelete}
       />
     </>
   );
@@ -136,29 +145,43 @@ function EditToolbar({ isEditDisabled }: { isEditDisabled: boolean }) {
 export default function StorageTable({
   rows,
   onEditDisabledChange,
+  isEditDisabled,
+  handleClose,
+  open,
+  handleEdit,
+  handleDelete,
 }: {
   rows: StorageTableRow[];
-  onEditDisabledChange: (value: boolean) => void;
-}) {
+  onEditDisabledChange: (value: boolean, params: GridRowParams) => void;
+} & ObtainingXMLDialogProps) {
   const router = useRouter();
+  
   const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (params: GridRowParams) => {
     // Handles the double click event
     console.log("Row double-clicked:", params.row);
     router.push("/flash/firmware");
   };
 
-  const [isEditDisabled, setIsEditDisabled] = useState(true);
+  //const [isEditDisabled, setIsEditDisabled] = useState(true);
 
   const handleRowClick: GridEventListener<"rowClick"> = (params: GridRowParams) => {
-    setIsEditDisabled(false); // Enable the Edit button on row click
-    onEditDisabledChange(false);
+    onEditDisabledChange(false, params);
+    //setIsEditDisabled(false); // Enable the Edit button on row click
   };
 
   return (
     <Box sx={{ width: "100%" }}>
       <DataGrid
         slots={{
-          toolbar: () => <EditToolbar isEditDisabled={isEditDisabled} />,
+          toolbar: () => (
+            <EditToolbar
+              isEditDisabled={isEditDisabled}
+              handleClose={handleClose}
+              open={open}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          ),
         }}
         rows={rows}
         columns={columns}
