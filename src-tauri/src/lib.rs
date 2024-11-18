@@ -1,3 +1,5 @@
+use std::env;
+
 use quick_flash::{
     credentials::Credentials, credentials_manager::CredentialsManager, storage::Storage, BaseDirs,
 };
@@ -137,6 +139,9 @@ fn get_firmware_versions(
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    // the scaling is broken if this is set to 1
+    unsafe { env::set_var("GTK_USE_PORTAL", "0") }
+
     let dirs = BaseDirs::new().expect("Failed to initialize base directories");
     let creds = CredentialsManager::new(dirs.creds_dir.clone());
 
