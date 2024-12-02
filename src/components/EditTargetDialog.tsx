@@ -5,40 +5,61 @@ import { Box, Button, DialogActions, Stack, TextField } from "@mui/material";
 import { BootstrapDialog, BootstrapDialogTitle } from "./shared";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { TargetTableRow } from "./TargetTable";
 
 export interface ObtainingXMLDialogProps {
   handleClose: () => void;
   open: boolean;
+  handleEdit: (data: TargetTableRow) => void;
+  data: TargetTableRow;
 }
 
 export default function EditTargetDialog(props: ObtainingXMLDialogProps) {
-  const { handleClose, open, ...other } = props;
+  const { handleClose, open, handleEdit, data } = props;
+
+  // State for the input fields
+  const [targetName, setTargetName] = React.useState(data.name || "");
+
+  React.useEffect(() => {
+    setTargetName(data.name || "");
+  }, [data]);
+
+  const handleSave = () => {
+    const updatedData = {
+      ...data,
+      name: targetName,
+    };
+    console.log(updatedData);
+    handleEdit(updatedData); // Pass updated data to the parent component
+    handleClose(); // Close the dialog
+  };
 
   return (
     <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
       <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
         <Typography variant="h5" color="primary">
-          {" "}
-          Edit Target{" "}
+          Edit Target
         </Typography>
       </BootstrapDialogTitle>
       <DialogContent>
         <Box width={400} mt={2}>
           <TextField
-            id="outlined-basic"
+            id="target-name"
             label="Target's name"
             variant="outlined"
             fullWidth
-          ></TextField>
+            value={targetName}
+            onChange={(e) => setTargetName(e.target.value)} // Update state on input change
+          />
           <Stack direction="row" spacing={2} alignItems="center" mt={2}>
             <Box width="45%">
               <Typography variant="subtitle2" color="primary">
-                Manufacture
+                Manufacturer
               </Typography>
             </Box>
             <Box width="55%">
               <Typography variant="body2" color="primary">
-                Black magic
+                {data.manufacturer}
               </Typography>
             </Box>
           </Stack>
@@ -51,7 +72,7 @@ export default function EditTargetDialog(props: ObtainingXMLDialogProps) {
             </Box>
             <Box width="55%">
               <Typography variant="body2" color="primary">
-                VID
+                {data.vendorId}
               </Typography>
             </Box>
           </Stack>
@@ -64,7 +85,7 @@ export default function EditTargetDialog(props: ObtainingXMLDialogProps) {
             </Box>
             <Box width="55%">
               <Typography variant="body2" color="primary">
-                Random serial number
+                {data.serialNumber}
               </Typography>
             </Box>
           </Stack>
@@ -76,7 +97,7 @@ export default function EditTargetDialog(props: ObtainingXMLDialogProps) {
             </Box>
             <Box width="55%">
               <Typography variant="body2" color="primary">
-                10.10.2024 15:10
+                {data.firstConnection}
               </Typography>
             </Box>
           </Stack>
@@ -88,7 +109,7 @@ export default function EditTargetDialog(props: ObtainingXMLDialogProps) {
             </Box>
             <Box width="55%">
               <Typography variant="body2" color="primary">
-                16.10.2024 13:13
+                {data.connectedSince}
               </Typography>
             </Box>
           </Stack>
@@ -100,7 +121,7 @@ export default function EditTargetDialog(props: ObtainingXMLDialogProps) {
             </Box>
             <Box width="55%">
               <Typography variant="body2" color="primary">
-                16.10.2024 13:23
+                {data.lastUsed}
               </Typography>
             </Box>
           </Stack>
@@ -116,9 +137,7 @@ export default function EditTargetDialog(props: ObtainingXMLDialogProps) {
           Cancel
         </Button>
         <Button
-          onClick={() => {
-            handleClose();
-          }}
+          onClick={handleSave}
           variant="contained"
           color="primary"
           endIcon={<CheckCircleIcon />}
