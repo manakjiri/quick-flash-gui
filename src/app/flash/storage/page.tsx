@@ -34,12 +34,20 @@ export default function Home() {
       name: "quick-flash",
       date: "1.1.1999",
       connectionStatus: "ONLINE",
+      bucketName: "quick-flash",
+      accountId: "749782798",
+      bucketId: "quick-flash",
+      bucketSecretKey: "JSkjlssjo53IHjhkjfh",
     },
     {
       id: 1,
       name: "fake_storage",
       date: "25.11.2023",
       connectionStatus: "OFFLINE",
+      bucketName: "fake-storage",
+      accountId: "749782798",
+      bucketId: "quick-flash",
+      bucketSecretKey: "JSkjlssjo53IHjhkjfh",
     },
   ]);
   const [hideRows, setHideRows] = useState<number[]>([]);
@@ -118,23 +126,56 @@ export default function Home() {
         selectedStorage.current = null;
       },
     });
-  }; 
+  };
 
-  const handleEditAction = () => {};
+  const handleEditAction = (updatedFields: Partial<StorageTableRow>) => {
+    console.log("WORKING");
+    if (!selectedStorage.current) {
+      console.error("No storage selected for editing");
+      return;
+    }
 
+    const selectedId = selectedStorage.current.row.id;
 
- /* useEffect(() => {
-    const handleBeforeUnload = () => {
-      console.log("Page is about to be refreshed or closed");
-      // Perform any necessary cleanup or save data here
-    };
-  
-    window.addEventListener("beforeunload", handleBeforeUnload);
+    if (!updatedFields) {
+      console.error("No updated fields provided for save action");
+      return;
+    }
 
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);*/
+    // Update the rows state with the edited data
+    setRows((prevRows) =>
+      prevRows.map((row) => (row.id === selectedId ? { ...row, ...updatedFields } : row)),
+    );
+
+    // Provide feedback to the user
+    const editedRow = rows.find((row) => row.id === selectedId);
+    if (editedRow) {
+      toastManagerRef.current?.showToast({
+        type: "success",
+        message: `Successfully updated ${editedRow.name}!`,
+        duration: 5000,
+      });
+    }
+
+    console.log(`Storage with ID ${selectedId} updated with:`, updatedFields);
+
+    // Clear the selection
+    selectedStorage.current = null;
+    setIsEditDisabled(true); // Optionally disable further actions
+  };
+
+  /* useEffect(() => {
+     const handleBeforeUnload = () => {
+       console.log("Page is about to be refreshed or closed");
+       // Perform any necessary cleanup or save data here
+     };
+   
+     window.addEventListener("beforeunload", handleBeforeUnload);
+ 
+     return () => {
+       window.removeEventListener("beforeunload", handleBeforeUnload);
+     };
+   }, []);*/
 
   return (
     <main>
@@ -148,7 +189,7 @@ export default function Home() {
               rows={filteredRows}
               onEditDisabledChange={handleEditDisabledChange}
               isEditDisabled={isEditDisabled}
-              handleClose={() => {}}
+              handleClose={() => { }}
               open={false}
               handleEdit={handleEditAction}
               handleDelete={handleDeleteAction}
