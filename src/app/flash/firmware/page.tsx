@@ -24,8 +24,6 @@ interface StorageCredentials {
 }
 
 export default function Home() {
- 
-
   const [activeStep, setActiveStep] = React.useState(1);
   const [rows, setRows] = useState<FirmwareTableRow[]>([
     { id: 0, name: "blink", date: "18.3.2021" },
@@ -39,8 +37,9 @@ export default function Home() {
     { id: 2, name: "creation", date: "1.1.2019" },
     { id: 3, name: "Grrrreetings!", date: "1.12.2018" },
     { id: 4, name: "randomNumber", date: "21.11.2019" },
+    { id: 5, name: "fake1758", date: "22.11.2019" },
   ]);
-  
+
   useEffect(() => {
     const storageName = sessionStorage.getItem("storageToDelete");
     if (storageName) {
@@ -49,7 +48,7 @@ export default function Home() {
         user_storage_name: storageName,
       });
       sessionStorage.removeItem("storageToDelete"); // Clean up
-    }      
+    }
   }, []);
 
   const [isEditDisabled, setIsEditDisabled] = useState(true);
@@ -66,7 +65,10 @@ export default function Home() {
             <HorizontalLinearStepper activeStep={activeStep} />
           </Box>
           <Box sx={{ mt: 4 }}>
-            <FirmwareTable rows={(sessionStorage.getItem("selectedStorage") === "quick-flash")? rows : rows_B} onEditDisabledChange={handleEditDisabledChange} />
+            <FirmwareTable
+              rows={sessionStorage.getItem("selectedStorage") === "quick-flash" ? rows : rows_B}
+              onEditDisabledChange={handleEditDisabledChange}
+            />
           </Box>
           {
             /* <Button

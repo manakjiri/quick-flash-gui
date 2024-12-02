@@ -71,18 +71,6 @@ export default function Home() {
 
   const handleStart = () => {
     console.log("Starting something");
-    invoke<StorageCredentials[]>("get_all_storage_credentials").then((res) => {
-      setRows(
-        res.map<StorageTableRow>((value, index) => {
-          return {
-            id: index,
-            name: value.user_storage_name,
-            date: new Date(value.timestamp * 1000).toLocaleString(),
-            connectionStatus: "Connected",
-          };
-        }),
-      );
-    });
   };
 
   const toastManagerRef = React.useRef<{ showToast: Function }>(null);
@@ -205,7 +193,7 @@ export default function Home() {
               onEditDisabledChange={handleEditDisabledChange}
               isEditDisabled={isEditDisabled}
               handleAdd={handleAddAction}
-              handleClose={() => {}}
+              handleClose={() => { }}
               open={false}
               handleEdit={handleEditAction}
               handleDelete={handleDeleteAction}
