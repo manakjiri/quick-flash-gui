@@ -63,7 +63,7 @@ export default function Home() {
 
   const handleStart = () => {
     console.log("Starting something");
-    invoke<StorageCredentials[]>("get_all_storage_credentials").then((res) => {
+  /*  invoke<StorageCredentials[]>("get_all_storage_credentials").then((res) => {
       setRows(
         res.map<StorageTableRow>((value, index) => {
           return {
@@ -74,7 +74,7 @@ export default function Home() {
           };
         }),
       );
-    });
+    });*/
   };
 
   const toastManagerRef = React.useRef<{ showToast: Function }>(null);
