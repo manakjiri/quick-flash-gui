@@ -84,6 +84,7 @@ export interface ObtainingXMLDialogProps {
   isEditDisabled: boolean;
   handleClose: () => void;
   open: boolean;
+  handleAdd: (data: StorageTableRow) => void;
   handleEdit: (updatedFields: Partial<StorageTableRow>) => void;
   handleDelete: () => void;
   data: StorageTableRow;
@@ -91,7 +92,8 @@ export interface ObtainingXMLDialogProps {
 
 function EditToolbar(props: ObtainingXMLDialogProps) {
   //const apiRef = useGridApiContext();
-  const { isEditDisabled, handleClose, open, handleEdit, handleDelete, data, ...other } = props;
+  const { isEditDisabled, handleClose, open, handleAdd, handleEdit, handleDelete, data, ...other } =
+    props;
 
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openAddDialog, setOpenAddDialog] = useState(false);
@@ -137,7 +139,7 @@ function EditToolbar(props: ObtainingXMLDialogProps) {
       <AddStorageDialog
         handleClose={() => setOpenAddDialog(false)}
         open={openAddDialog}
-        handleAdd={() => { }}
+        handleAdd={handleAdd}
       />
       <DeleteConfirmation
         handleClose={() => setOpenRemoveDialog(false)}
@@ -154,6 +156,7 @@ export default function StorageTable({
   isEditDisabled,
   handleClose,
   open,
+  handleAdd,
   handleEdit,
   handleDelete,
 }: {
@@ -161,11 +164,10 @@ export default function StorageTable({
   onEditDisabledChange: (value: boolean, params: GridRowParams) => void;
 } & ObtainingXMLDialogProps) {
   const router = useRouter();
-  let selectedRow: StorageTableRow = rows[0];
+  const [selectedRow, setSelectedRow] = useState<StorageTableRow>(rows[0]);
 
   const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (params: GridRowParams) => {
     // Handles the double click event
-    console.log("Row double-clicked:", params.row);
     router.push("/flash/firmware");
   };
 
@@ -173,8 +175,7 @@ export default function StorageTable({
 
   const handleRowClick: GridEventListener<"rowClick"> = (params: GridRowParams) => {
     onEditDisabledChange(false, params);
-    selectedRow = params.row as StorageTableRow;
-    //setIsEditDisabled(false); // Enable the Edit button on row click
+    setSelectedRow(params.row as StorageTableRow);
   };
 
   return (
@@ -186,6 +187,7 @@ export default function StorageTable({
               isEditDisabled={isEditDisabled}
               handleClose={handleClose}
               open={open}
+              handleAdd={handleAdd}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
               data={selectedRow}

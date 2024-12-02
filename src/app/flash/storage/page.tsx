@@ -129,7 +129,6 @@ export default function Home() {
   };
 
   const handleEditAction = (updatedFields: Partial<StorageTableRow>) => {
-    console.log("WORKING");
     if (!selectedStorage.current) {
       console.error("No storage selected for editing");
       return;
@@ -164,6 +163,22 @@ export default function Home() {
     setIsEditDisabled(true); // Optionally disable further actions
   };
 
+  const handleAddAction = (data: StorageTableRow) => {
+    setRows([...rows, { ...data, id: rows.length }]);
+
+    toastManagerRef.current?.showToast({
+      type: "success",
+      message: `Successfully added ${data.name}!`,
+      duration: 5000,
+    });
+
+    console.log(`Storage with ID ${data.id} created with:`, data);
+
+    // Clear the selection
+    selectedStorage.current = null;
+    setIsEditDisabled(true);
+  };
+
   /* useEffect(() => {
      const handleBeforeUnload = () => {
        console.log("Page is about to be refreshed or closed");
@@ -189,7 +204,8 @@ export default function Home() {
               rows={filteredRows}
               onEditDisabledChange={handleEditDisabledChange}
               isEditDisabled={isEditDisabled}
-              handleClose={() => { }}
+              handleAdd={handleAddAction}
+              handleClose={() => {}}
               open={false}
               handleEdit={handleEditAction}
               handleDelete={handleDeleteAction}
