@@ -39,6 +39,7 @@ export default function Home() {
     { id: 2, name: "creation", date: "1.1.2019" },
     { id: 3, name: "Grrrreetings!", date: "1.12.2018" },
     { id: 4, name: "randomNumber", date: "21.11.2019" },
+    { id: 5, name: "fake1758", date: "22.11.2019" },
   ]);
   
   useEffect(() => {

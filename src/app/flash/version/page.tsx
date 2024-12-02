@@ -24,9 +24,22 @@ export default function Home() {
   ]);
   //second mock table
   const [rows_B, setRows_B] = useState<VersionTableRow[]>([
-    { id: 0, name: "6ef8 ", date: "13.10.2020", chipName: "raspberry" },
+    { id: 0, name: "ff11", date: "16.6.2020", chipName: "raspberry" },
     { id: 1, name: "2b1a", date: "19.6.2020", chipName: "raspberry" },
     { id: 2, name: "ff68", date: "17.6.2020", chipName: "raspberry" },
+    { id: 3, name: "6f68", date: "16.6.2020", chipName: "raspberry" },
+    { id: 4, name: "fe68", date: "15.6.2020", chipName: "raspberry" },
+    { id: 5, name: "fff8", date: "15.6.2020", chipName: "raspberry" },
+    { id: 6, name: "6e68", date: "15.6.2020", chipName: "raspberry" },
+    { id: 7, name: "eef8", date: "17.6.2020", chipName: "raspberry" },
+    { id: 8, name: "11ba", date: "13.10.2020", chipName: "raspberry" },
+    { id: 9, name: "11ff", date: "13.10.2020", chipName: "raspberry" },
+    { id: 10, name: "6ef8 ", date: "13.10.2020", chipName: "raspberry" },
+    { id: 11, name: "6ef7", date: "17.6.2020", chipName: "raspberry" },
+    { id: 12, name: "6ef6", date: "13.10.2020", chipName: "raspberry" },
+    { id: 13, name: "6ef5", date: "17.6.2020", chipName: "raspberry" },
+    { id: 14, name: "6ef9", date: "17.6.2020", chipName: "raspberry" },
+    { id: 15, name: "whoNamedThese", date: "17.6.2020", chipName: "fakerry" },
   ]);
 
 
