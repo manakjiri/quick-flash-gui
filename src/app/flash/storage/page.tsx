@@ -197,6 +197,7 @@ export default function Home() {
               open={false}
               handleEdit={handleEditAction}
               handleDelete={handleDeleteAction}
+              data={selectedStorage.current?.row}
             />
           </Box>
           {
