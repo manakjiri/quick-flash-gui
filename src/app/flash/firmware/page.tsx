@@ -40,16 +40,19 @@ export default function Home() {
     { id: 5, name: "fake1758", date: "22.11.2019" },
   ]);
 
+  const [rowsToDisplay, setRowsToDisplay] = useState(rows_B);
+
   useEffect(() => {
-    const storageName = sessionStorage.getItem("storageToDelete");
+    const storageName = sessionStorage?.getItem("storageToDelete");
     if (storageName) {
       console.log("Performing action for saved storage:", storageName);
       invoke<StorageCredentials[]>("remove_storage_credentials", {
         user_storage_name: storageName,
       });
-      sessionStorage.removeItem("storageToDelete"); // Clean up
+      sessionStorage?.removeItem("storageToDelete"); // Clean up
     }
-  }, []);
+    setRowsToDisplay(sessionStorage?.getItem("selectedStorage") === "quick-flash" ? rows : rows_B);
+  }, [rows, rows_B]);
 
   const [isEditDisabled, setIsEditDisabled] = useState(true);
 
@@ -65,10 +68,7 @@ export default function Home() {
             <HorizontalLinearStepper activeStep={activeStep} />
           </Box>
           <Box sx={{ mt: 4 }}>
-            <FirmwareTable
-              rows={sessionStorage.getItem("selectedStorage") === "quick-flash" ? rows : rows_B}
-              onEditDisabledChange={handleEditDisabledChange}
-            />
+            <FirmwareTable rows={rowsToDisplay} onEditDisabledChange={handleEditDisabledChange} />
           </Box>
           {
             /* <Button
