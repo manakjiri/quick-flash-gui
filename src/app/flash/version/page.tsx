@@ -49,6 +49,12 @@ export default function Home() {
     setIsEditDisabled(newState);
   };
 
+  const [rowsToDisplay, setRowsToDisplay] = useState(rows_B);
+
+  useEffect(() => {
+    setRowsToDisplay(sessionStorage?.getItem("selectedStorage") === "quick-flash" ? rows : rows_B);
+  }, [rows, rows_B]);
+
   return (
     <main>
       <Container maxWidth="xl">
@@ -57,10 +63,7 @@ export default function Home() {
             <HorizontalLinearStepper activeStep={activeStep} />
           </Box>
           <Box sx={{ mt: 4 }}>
-            <VersionTable
-              rows={sessionStorage.getItem("selectedStorage") === "quick-flash" ? rows : rows_B}
-              onEditDisabledChange={handleEditDisabledChange}
-            />
+            <VersionTable rows={rowsToDisplay} onEditDisabledChange={handleEditDisabledChange} />
           </Box>
           {
             /* <Button

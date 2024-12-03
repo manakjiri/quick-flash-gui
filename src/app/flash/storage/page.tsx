@@ -64,7 +64,7 @@ export default function Home() {
   const [isEditDisabled, setIsEditDisabled] = useState(true);
 
   const handleEditDisabledChange = (newState: boolean, newRow: GridRowParams) => {
-    sessionStorage.setItem("selectedStorage", newRow.row.name);
+    sessionStorage?.setItem("selectedStorage", newRow.row.name);
     setIsEditDisabled(newState);
     selectedStorage.current = newRow;
   };
@@ -82,7 +82,7 @@ export default function Home() {
     }
     const curr_id = selectedStorage.current.row.id;
     toggleRowVisibility(curr_id);
-    sessionStorage.removeItem("storageToDelete"); // Clean up
+    sessionStorage?.removeItem("storageToDelete"); // Clean up
     setIsEditDisabled(false);
     console.log("Undo action triggered.");
   };
@@ -95,7 +95,7 @@ export default function Home() {
     const s_Name = selectedStorage.current.row.name;
     // Toggle visibility using the latest selected_storage
     toggleRowVisibility(selectedStorage.current.row.id);
-    sessionStorage.setItem("storageToDelete", s_Name);
+    sessionStorage?.setItem("storageToDelete", s_Name);
     setIsEditDisabled(true);
     // Show toast notification with undo action
     toastManagerRef.current?.showToast({
