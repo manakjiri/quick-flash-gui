@@ -1,6 +1,10 @@
 name: "Build"
 
-on: [pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 
 # This workflow will build your tauri app without uploading it anywhere.
 
