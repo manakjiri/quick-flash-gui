@@ -82,11 +82,6 @@ export default function VersionTable({
   };
 
   const router = useRouter();
-  const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (params: GridRowParams) => {
-    // Handles the double click event
-    console.log("Row double-clicked:", params.row);
-    router.push("/flash/target");
-  };
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -102,7 +97,6 @@ export default function VersionTable({
         }}
         pageSizeOptions={[5, 10, 25]}
         onRowClick={handleRowClick} // Enable button on row click
-        onRowDoubleClick={handleRowDoubleClick} // Route to the next part of the process
       />
     </Box>
   );

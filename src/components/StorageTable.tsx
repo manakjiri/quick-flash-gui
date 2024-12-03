@@ -170,10 +170,6 @@ export default function StorageTable({
   const router = useRouter();
   const [selectedRow, setSelectedRow] = useState<StorageTableRow>(rows[0]);
 
-  const handleRowDoubleClick: GridEventListener<"rowDoubleClick"> = (params: GridRowParams) => {
-    // Handles the double click event
-    router.push("/flash/firmware");
-  };
 
   //const [isEditDisabled, setIsEditDisabled] = useState(true);
 
@@ -208,7 +204,6 @@ export default function StorageTable({
           },
         }}
         onRowClick={handleRowClick} // Enable button on row click
-        onRowDoubleClick={handleRowDoubleClick} // Route to the next part of the process
       />
     </Box>
   );
