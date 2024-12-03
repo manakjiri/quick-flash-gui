@@ -3,9 +3,19 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
+import { useRouter } from "next/navigation";
 
 export default function HorizontalLinearStepper({ activeStep }: { activeStep: number }) {
   const steps = ["Storage", "Firmware", "Version", "Target"];
+  const router = useRouter();
+
+  // Define paths for each step
+  const stepPaths = ["/storage", "/firmware", "/version", "/target"];
+
+  // Handler for step clicks
+  const handleStepClick = (index: number) => {
+    router.push("/flash" + stepPaths[index]);
+  };
 
   return (
     <Box sx={{ p: 3, boxShadow: 1 }}>
@@ -18,7 +28,13 @@ export default function HorizontalLinearStepper({ activeStep }: { activeStep: nu
             } = {};
             return (
               <Step key={label} {...stepProps}>
-                <StepLabel {...labelProps}>{label}</StepLabel>
+                <StepLabel
+                  {...labelProps}
+                  onClick={() => handleStepClick(index)} // Add click handler
+                  sx={{ cursor: "pointer" }} // Add cursor style for better UX
+                >
+                  {label}
+                </StepLabel>
               </Step>
             );
           })}
