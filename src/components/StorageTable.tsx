@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, IconButton, Tooltip } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import EditStorageDialog from "./EditStorageDialog";
@@ -18,6 +18,7 @@ import {
   useGridApiContext,
   GridToolbarContainer,
 } from "@mui/x-data-grid";
+import { HeaderWithFilter } from "./HeaderWithFilter";
 
 export interface StorageTableRow {
   id: number;
@@ -35,6 +36,7 @@ const columns: GridColDef<StorageTableRow>[] = [
     field: "name",
     headerName: "Name",
     flex: 1,
+    renderHeader: HeaderWithFilter, // Custom header with filter icon
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
@@ -49,6 +51,7 @@ const columns: GridColDef<StorageTableRow>[] = [
     field: "date",
     headerName: "Date added",
     flex: 1,
+    renderHeader: HeaderWithFilter, // Custom header with filter icon
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
@@ -63,6 +66,7 @@ const columns: GridColDef<StorageTableRow>[] = [
     field: "connectionStatus",
     headerName: "Connection status",
     flex: 1,
+    renderHeader: HeaderWithFilter, // Custom header with filter icon
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>

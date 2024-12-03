@@ -10,6 +10,7 @@ import {
   GridToolbarContainer,
 } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
+import { HeaderWithFilter } from "./HeaderWithFilter";
 
 export interface VersionTableRow {
   id: number;
@@ -23,6 +24,7 @@ const columns: GridColDef<VersionTableRow>[] = [
     field: "name",
     headerName: "Name",
     flex: 1,
+    renderHeader: HeaderWithFilter, // Custom header with filter icon
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
@@ -37,6 +39,7 @@ const columns: GridColDef<VersionTableRow>[] = [
     field: "date",
     headerName: "Last changed",
     flex: 1,
+    renderHeader: HeaderWithFilter, // Custom header with filter icon
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
@@ -51,6 +54,7 @@ const columns: GridColDef<VersionTableRow>[] = [
     field: "chipName",
     headerName: "Chip name",
     flex: 1,
+    renderHeader: HeaderWithFilter, // Custom header with filter icon
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>

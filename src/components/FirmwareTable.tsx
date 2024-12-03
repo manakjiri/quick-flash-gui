@@ -10,6 +10,7 @@ import {
   GridToolbarContainer,
 } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
+import { HeaderWithFilter } from "./HeaderWithFilter";
 
 export interface FirmwareTableRow {
   id: number;
@@ -22,6 +23,7 @@ const columns: GridColDef<FirmwareTableRow>[] = [
     field: "name",
     headerName: "Name",
     flex: 1,
+    renderHeader: HeaderWithFilter, // Custom header with filter icon
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
@@ -36,6 +38,7 @@ const columns: GridColDef<FirmwareTableRow>[] = [
     field: "date",
     headerName: "Last changed",
     flex: 1,
+    renderHeader: HeaderWithFilter, // Custom header with filter icon
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>

@@ -13,6 +13,7 @@ import {
   GridToolbarContainer,
 } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
+import { HeaderWithFilter } from "./HeaderWithFilter";
 export interface TargetTableRow {
   id: number;
   name: string;
@@ -30,6 +31,7 @@ const columns: GridColDef<TargetTableRow>[] = [
     field: "name",
     headerName: "Name",
     flex: 1,
+    renderHeader: HeaderWithFilter, // Custom header with filter icon
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
@@ -44,6 +46,7 @@ const columns: GridColDef<TargetTableRow>[] = [
     field: "date",
     headerName: "Time connected",
     flex: 1,
+    renderHeader: HeaderWithFilter, // Custom header with filter icon
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
@@ -58,6 +61,7 @@ const columns: GridColDef<TargetTableRow>[] = [
     field: "manufacturer",
     headerName: "Manufacturer",
     flex: 1,
+    renderHeader: HeaderWithFilter, // Custom header with filter icon
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
@@ -72,6 +76,7 @@ const columns: GridColDef<TargetTableRow>[] = [
     field: "lastUsed",
     headerName: "Last used",
     flex: 1,
+    renderHeader: HeaderWithFilter, // Custom header with filter icon
     renderCell: (cellValues) => {
       return (
         <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
