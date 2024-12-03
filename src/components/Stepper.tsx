@@ -16,7 +16,13 @@ export default function HorizontalLinearStepper({ activeStep }: { activeStep: nu
 
   // Handler for step clicks
   const handleStepClick = (index: number) => {
-    router.push("/flash" + stepPaths[index]);
+    if (index <= activeStep) {
+      // If clicked step is before or at the current active step, navigate to it
+      router.push("/flash" + stepPaths[index]);
+    } else {
+      // If clicked step is after the current active step, do nothing (or handle as needed)
+      console.log("Cannot navigate to future steps");
+    }
   };
 
   return (
